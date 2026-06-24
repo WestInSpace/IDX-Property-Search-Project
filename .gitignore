@@ -2,6 +2,9 @@
 *.csv
 *.xlsx
 *.sql
-.env #credentials
 
-node_modules/ #ignore the code for external libraries
+#credentials
+.env
+
+#ignore the code for external libraries
+node_modules/
