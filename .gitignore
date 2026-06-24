@@ -8,3 +8,6 @@
 
 #ignore the code for external libraries
 node_modules/
+
+#ignore my internal passes document
+PASSES
