@@ -1,6 +1,9 @@
 # IDX-Property-Search-Project
 A Zillow/Redfin-style property search experience backed by real MLS data.
 
+
+-----------------------------------Week 1 (6/15/2026)-----------------------------------
+
 Set up local mysql database containing open house and property information using docker.
 
 1. Install docker engine:  
@@ -109,4 +112,41 @@ Open the terminal (Ctrl + Alt + T)
 
    The container should stop and start with no errors.
 
-   
+
+-----------------------------------Week 2 (6/22/2026)-----------------------------------
+
+Dependencies: Node.js, express, mysql2, dotenv, cors
+dev dependency: nodemon
+
+Started a Node.js project with a mysql connection pool module. Is able to connect to the local database and pass health checks.
+
+1. Create your .env file    
+&nbsp;&nbsp;&nbsp;&nbsp;Navigate the to /backend/ directory    
+&nbsp;&nbsp;&nbsp;&nbsp;Create a .env file:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;touch .env
+
+&nbsp;&nbsp;&nbsp;&nbsp;Open the .env file:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim .env
+
+&nbsp;&nbsp;&nbsp;&nbsp;Put the following in your .env file, make sure to fill the placeholder with your information:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORT=5000    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST=localhost    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_USER=root    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_PASSWORD=[YourDatabasePassword]    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_NAME=rets
+
+2. Start the server    
+&nbsp;&nbsp;&nbsp;&nbsp;Start the container that contains the database that was created in week 1.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Navigate to /backend/ and call:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;npm run dev
+
+&nbsp;&nbsp;&nbsp;&nbsp;You should get a message that says it connected successfully.    
+&nbsp;&nbsp;&nbsp;&nbsp;To confirm this type this in your browser to see that the local server has connected to the local database:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://localhost:5000/api/health
+
+&nbsp;&nbsp;&nbsp;&nbsp;You should see an "OK" "CONNECTED" message.
+
+&nbsp;&nbsp;&nbsp;&nbsp;If you see a "Down: 500" "DISCONNECTED"" error make sure the container containing your database is running on localhost: port 3306
+
+&nbsp;&nbsp;&nbsp;&nbsp;Ensure you have the correct credentials in your .env file
