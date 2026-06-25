@@ -8,18 +8,18 @@ const PORT = process.env.PORT || 5000;
 
 // 1. Middleware
 app.use(cors());
-app.use(express.json()); // Allows your API to parse incoming JSON request bodies
+app.use(express.json()); // Allows the API to parse incoming JSON request bodies
 
 // 2. Base Test Route
 app.get('/', (req, res) => {
-    res.json({ message: "Real Estate REST API is running!" });
+    res.json({ message: "REST API is running!" });
 });
 
 // 2.5. Verify backend and database connectivity, visit: http://localhost:5000/api/health
 app.get('/api/health', async (req, res) => {
     try {
         // Query the database to ensure the connection pool is responsive
-        const [rows] = await pool.query('SELECT 1 + 1 AS result');
+        const [rows] = await pool.query('SELECT 1');
         
         // If the query succeeds, return a 200 OK status with details
         res.status(200).json({
