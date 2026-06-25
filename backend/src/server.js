@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
-import pool from './db.js'; // Imports the MySQL pool you created
+import pool from './config/db.js'; // Imports the MySQL pool you created
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     res.json({ message: "Real Estate REST API is running!" });
 });
 
-// 2.5. Verify backend and database connectivity
+// 2.5. Verify backend and database connectivity, visit: http://localhost:5000/api/health
 app.get('/api/health', async (req, res) => {
     try {
         // Query the database to ensure the connection pool is responsive
