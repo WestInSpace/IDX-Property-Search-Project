@@ -122,7 +122,7 @@ Started a Node.js project with a mysql connection pool module. Is able to connec
 
 1. Install dependencies    
 &nbsp;&nbsp;&nbsp;&nbsp;Navigate to the /backend/ folder in your terminal    
-&nbsp;&nbsp;&nbsp;&nbsp; Call the following command to installthe needed dependencies based on what's in the package.json file:    
+&nbsp;&nbsp;&nbsp;&nbsp; Call the following command to install the needed dependencies based on what's in the package.json file:    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;npm install    
 
 2. Create your .env file    

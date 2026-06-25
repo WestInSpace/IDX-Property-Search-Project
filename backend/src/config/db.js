@@ -1,5 +1,10 @@
+//imports using, type: module, in package.json
 import mysql from 'mysql2/promise';
-import 'dotenv/config';
+import 'dotenv/config'; //Import the .env file using, type: module, in package.json
+
+//Imports using, type: commonjs, in package.json
+//const mysql = require('mysql12/promise')
+//require('dotenv').config();
 
 // Create the connection pool using environment variables
 const pool = mysql.createPool({
@@ -12,5 +17,9 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Export the pool to use in your route files
+// Export the pool to use in other files
+//exports using, type: module, in package.json
 export default pool;
+
+//exports using, type: commonjs, in package.json
+//module.exports = pool;

@@ -1,7 +1,14 @@
+//imports using, type: module, in package.json
 import express from 'express';
 import cors from 'cors';
+import dbPool from './config/db.js'; // Imports the MySQL pool
 import 'dotenv/config';
-import pool from './config/db.js'; // Imports the MySQL pool you created
+
+//Imports using, type: commonjs, in package.json
+//const express = require('express')
+//const cors = require('cors')
+//const dbPool = require('./config/db') //imports the MySQL pool from db.js
+//require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,11 +22,12 @@ app.get('/', (req, res) => {
     res.json({ message: "REST API is running!" });
 });
 
-// 2.5. Verify backend and database connectivity, visit: http://localhost:5000/api/health
+//Verify backend and database connectivity, visit: http://localhost:5000/api/health
+//This is also done in app.listen and returned in immediately the terminal upon connection
 app.get('/api/health', async (req, res) => {
     try {
         // Query the database to ensure the connection pool is responsive
-        const [rows] = await pool.query('SELECT 1');
+        const [rows] = await dbPool.query('SELECT 1');
         
         // If the query succeeds, return a 200 OK status with details
         res.status(200).json({
@@ -40,11 +48,11 @@ app.get('/api/health', async (req, res) => {
 
 // 3. Start the Server & Test DB Connection
 app.listen(PORT, async () => {
-    console.log(`Server is successfully running on port ${PORT}`);
-    
+    console.log(`Server is listening on port ${PORT}`);
+
+    // Execute a quick dummy query to test the database pool connection
     try {
-        // Execute a quick dummy query to test the database pool connection
-        const [rows] = await pool.query('SELECT 1 + 1 AS result');
+        const [rows] = await dbPool.query('SELECT 1');
         console.log('Database connection pool established successfully.');
     } catch (error) {
         console.error('Database connection failed! Check your .env credentials.');
