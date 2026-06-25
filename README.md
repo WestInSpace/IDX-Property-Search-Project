@@ -120,7 +120,12 @@ dev dependency: nodemon
 
 Started a Node.js project with a mysql connection pool module. Is able to connect to the local database and pass health checks.
 
-1. Create your .env file    
+1. Install dependencies    
+&nbsp;&nbsp;&nbsp;&nbsp;Navigate to the /backend/ folder in your terminal    
+&nbsp;&nbsp;&nbsp;&nbsp; Call the following command to installthe needed dependencies based on what's in the package.json file:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;npm install    
+
+2. Create your .env file    
 &nbsp;&nbsp;&nbsp;&nbsp;Navigate the to /backend/ directory    
 &nbsp;&nbsp;&nbsp;&nbsp;Create a .env file:    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;touch .env    
@@ -135,7 +140,7 @@ Started a Node.js project with a mysql connection pool module. Is able to connec
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_PASSWORD=[YourDatabasePassword]    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_NAME=rets
 
-2. Start the server    
+3. Start the server    
 &nbsp;&nbsp;&nbsp;&nbsp;Start the container that contains the database that was created in week 1.    
 
 &nbsp;&nbsp;&nbsp;&nbsp;Navigate to /backend/ and call:    
