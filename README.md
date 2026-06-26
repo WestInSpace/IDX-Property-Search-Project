@@ -1,162 +1,160 @@
 # IDX-Property-Search-Project
+
 A Zillow/Redfin-style property search experience backed by real MLS data.
 
+---
 
------------------------------------Week 1 (6/15/2026)-----------------------------------
+## Week 1 (6/15/2026)
 
-Set up local mysql database containing open house and property information using docker.
+Set up local MySQL database containing open house and property information using Docker.
 
-1. Install docker engine:  
-Open the terminal (Ctrl + Alt + T)  
-  Type the commands:  
-  &nbsp;&nbsp;&nbsp;&nbsp;curl -fsSL https://get.docker.com -o get-docker.sh  
-  &nbsp;&nbsp;&nbsp;&nbsp;sudo sh get-docker.sh  
-  Confirm the installation:  
-  &nbsp;&nbsp;&nbsp;&nbsp;docker --version #If this outputs the docker version, it's installed
+### 1. Install Docker Engine
+Open the terminal (Ctrl + Alt + T) and run the following commands to download and run the official script:
 
-2. Add youself to the docker group so you don't have to type sudo before every command  
-   type in the terminal:  
-   &nbsp;&nbsp;&nbsp;&nbsp;sudo groupadd docker  
-   &nbsp;&nbsp;&nbsp;&nbsp;sudo usermod -aG docker $USER  
-   &nbsp;&nbsp;&nbsp;&nbsp;newgrp docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
-4. Create the container for your mysql database:  
-   create a directory for your container:  
-   &nbsp;&nbsp;&nbsp;&nbsp;mkdir idx-mysql-local  
-   navigate to the folder you want to be the container using:  
-   &nbsp;&nbsp;&nbsp;&nbsp;cd ./idx-mysql-local  
-   create the compose YAML file:  
-   &nbsp;&nbsp;&nbsp;&nbsp;touch compose.yml  
-   open the YAML file in your choice of editor  
-   To open it in vim: (my preference)  
-   &nbsp;&nbsp;&nbsp;&nbsp;vim compose.yml  
-   Type the following into the YAML file:  
-   
-     &nbsp;&nbsp;&nbsp;&nbsp;mysql-latest  
-       &nbsp;&nbsp;&nbsp;&nbsp;image: mysql:8.0  
-       &nbsp;&nbsp;&nbsp;&nbsp;container_name: idx-mysql-local #A unique name for your container  
-       &nbsp;&nbsp;&nbsp;&nbsp;command: --socket/tmp/mysql.sock #put the sock file in a non-persistant directory  
-       &nbsp;&nbsp;&nbsp;&nbsp;restart: unless-stopped #On fail to start, try again  
-       &nbsp;&nbsp;&nbsp;&nbsp;environment:  
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROOT_PASSWORD: [enter your password]  
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_DATABASE: rets  
-     &nbsp;&nbsp;&nbsp;&nbsp;startup  
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ports:  
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "3306:3306"  
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volumes:  
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./init-scripts:/docker-entrypoint-initdb.d  
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- db_data:/var/lib/mysql  
-    &nbsp;&nbsp;&nbsp;&nbsp;volumes:  
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db_data:  
-   
-   Click esc then type :wq and hit enter  
+Confirm the installation (if this outputs the version, it's installed successfully):
+docker --version
 
-5. Start the container to set up the database:  
-  docker compose up -d #builds the container from the yml file  
+### 2. Configure Non-Sudo Group
+Add yourself to the docker group so you don't have to type sudo before every command:
 
-6. Copy the sql files into the container (This is so they will import faster later)  
-  &nbsp;&nbsp;&nbsp;&nbsp;mkdir mysql-files #create a directory inside the container to hold the sql files  
-  #Copy the sql files into that directory  
-  &nbsp;&nbsp;&nbsp;&nbsp;cp [pathTo:rets_property.sql] ./mysql-files  
-  &nbsp;&nbsp;&nbsp;&nbsp;cp [pathTo:rets_openhouse.sql] ./mysql-files  
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
 
-7. import the sql files into the database, this will create a new table for each sql file (This step may take a long time, around an hour, depending on the resources available on your computer)  
-&nbsp;&nbsp;&nbsp;&nbsp;I like to use the -vv flag and grep to get a minimilst output so I can see that is is still working to import.
-   
-   #Import the rets_property.sql file:  
-   &nbsp;&nbsp;&nbsp;&nbsp;docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_property.sql | grep affected 
+### 3. Create the Database Container
+Create and navigate to a new directory for your local environment:
 
-  #import the rets_openhouse.sql file:  
-  &nbsp;&nbsp;&nbsp;&nbsp;docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_openhouse.sql | grep affected
+mkdir idx-mysql-local
+cd ./idx-mysql-local
 
-7. Confirm that the database is working correctly:  
-  #Enter the mysql database:  
-  &nbsp;&nbsp;&nbsp;&nbsp;docker exec -it idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p
-  &nbsp;&nbsp;&nbsp;&nbsp;[Enter your password]
+Create and open a compose.yml file in your preferred text editor (like vim):
 
-  Your prompt should now look somehting like this:  
-  &nbsp;&nbsp;&nbsp;&nbsp;mysql>  
-  Navigate to your database:  
-  &nbsp;&nbsp;&nbsp;&nbsp;SHOW DATABASES;  
-  &nbsp;&nbsp;&nbsp;&nbsp;USE rets;  
-  &nbsp;&nbsp;&nbsp;&nbsp;SHOW TABLES;
-    
-  Check if there is data in each table:  
-  Both of these should return a non-zero number. If the number is 0, there is no data in the tables.  
-  &nbsp;&nbsp;&nbsp;&nbsp;SELECT COUNT(*) FROM rets_property;  
-  &nbsp;&nbsp;&nbsp;&nbsp;SELECT COUNT(*) FROM rets_openhouse;  
+touch compose.yml
+vim compose.yml
 
-  If you get 0 for either of the tables enter:  
-  This will delete the table that has no data so you can try again.  
-  &nbsp;&nbsp;&nbsp;&nbsp;DROP TABLE rets.[tableName]
+Paste the following configuration into your compose.yml file:
 
-  Then, exit mysql and try importing the data again as described in step 6
+services:
+  idx-mysql-local:
+    image: mysql:8.0
+    container_name: idx-mysql-local
+    command: --socket=/tmp/mysql.sock
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: [enter_your_password]
+      MYSQL_DATABASE: rets
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
 
-  Once this check passes try to querry the database  
-  try the following simple querries:  
-  &nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE rets_property; #Should output the collumn names for the rets_property table  
-  &nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE rets_openhouse; #Should output the collumn names for the rets_openhouse table
+volumes:
+  db_data:
 
-  try this simple querry for each table it should return the id for each row in the table:  
-  &nbsp;&nbsp;&nbsp;&nbsp;SELECT id FROM rets_property;  
-  &nbsp;&nbsp;&nbsp;&nbsp;SELECT id FROM rets_openhouse;
+*If using Vim, press Esc, type :wq, and hit Enter to save and exit.*
 
-  Once you have varified that the tables have data in them and are able to be queried exit mysql by:  
-  &nbsp;&nbsp;&nbsp;&nbsp;exit;
+### 4. Start the Container
+Run the following command to build and launch the database container in detached mode:
 
-8. Restart the container to make sure it stops and starts correctly  
-  Enter the following to stop the container:  
-  &nbsp;&nbsp;&nbsp;&nbsp;docker compose down  
-   Next, enter the folowing to start the container:  
-   &nbsp;&nbsp;&nbsp;&nbsp;docker compose up
+docker compose up -d
 
-   The container should stop and start with no errors.
+### 5. Prepare SQL Data Files
+Create a directory to temporarily store your SQL files for a faster import process:
 
+mkdir mysql-files
+cp [pathTo:rets_property.sql] ./mysql-files
+cp [pathTo:rets_openhouse.sql] ./mysql-files
 
------------------------------------Week 2 (6/22/2026)-----------------------------------
+### 6. Import SQL Datasets
+Import the data files into the database. This will create a new table for each SQL file. 
+> Note: This step may take up to an hour depending on your computer's hardware specs. We use the -vv flag and grep to show a minimal progress log.
 
-Dependencies: Node.js, express, mysql2, dotenv, cors
-dev dependency: nodemon
+Import the properties data:
+docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_property.sql | grep affected
 
-Started a Node.js project with a mysql connection pool module. Is able to connect to the local database and pass health checks.
+Import the open house data:
+docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_openhouse.sql | grep affected
 
-1. Install dependencies    
-&nbsp;&nbsp;&nbsp;&nbsp;Navigate to the /backend/ folder in your terminal    
-&nbsp;&nbsp;&nbsp;&nbsp; Call the following command to install the needed dependencies based on what's in the package.json file:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;npm install    
+### 7. Confirm Database Status
+Access the interactive MySQL shell inside the container:
 
-2. Create your .env file    
-&nbsp;&nbsp;&nbsp;&nbsp;Navigate the to /backend/ directory    
-&nbsp;&nbsp;&nbsp;&nbsp;Create a .env file:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;touch .env    
+docker exec -it idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p
+*(Enter your root password when prompted)*
 
-&nbsp;&nbsp;&nbsp;&nbsp;Open the .env file:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim .env    
+Your terminal prompt should now display mysql>. Verify your tables by executing the following queries:
 
-&nbsp;&nbsp;&nbsp;&nbsp;Put the following in your .env file, make sure to fill the &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholders with your information:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORT=[port]    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST=[database host ip]    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_USER=[database user]    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_PASSWORD=[yourDatabasePassword]    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_NAME=your_database_name    
+SHOW DATABASES;
+USE rets;
+SHOW TABLES;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Where:    
-&nbsp;&nbsp;&nbsp;&nbsp;PORT is the port you want to run your server on, for local &nbsp;&nbsp;&nbsp;&nbsp;hosting ussually use 5000, 8000. 8080, 3000, 8081 or 8082    
-&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST is the ip address of the database host, for use inside the container use: localhost, if you're not running inside your container use the name of your container.    
-&nbsp;&nbsp;&nbsp;&nbsp;DB_user is the username used to log into the database, for a local hosted databse use: root    
+Ensure both tables contain data (the counts should return non-zero numbers):
+SELECT COUNT(*) FROM rets_property;
+SELECT COUNT(*) FROM rets_openhouse;
 
-3. Start the server    
-&nbsp;&nbsp;&nbsp;&nbsp;Start the container that contains the database that was created in week 1.    
+> Troubleshooting: If either table returns 0, drop the failed table and re-run the import step:
+> DROP TABLE rets.[tableName];
 
-&nbsp;&nbsp;&nbsp;&nbsp;Navigate to /backend/ and call:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;npm run dev    
+Verify you can query table layouts and structures successfully:
 
-&nbsp;&nbsp;&nbsp;&nbsp;You should get a message that says it connected successfully.    
-&nbsp;&nbsp;&nbsp;&nbsp;To confirm this type this in your browser to see that the local server has connected to the local database:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://localhost:5000/api/health    
+DESCRIBE rets_property;
+DESCRIBE rets_openhouse;
+SELECT id FROM rets_property LIMIT 10;
+SELECT id FROM rets_openhouse LIMIT 10;
 
-&nbsp;&nbsp;&nbsp;&nbsp;You should see an "OK" "CONNECTED" message.    
+Once confirmed, exit the MySQL prompt:
+exit;
 
-&nbsp;&nbsp;&nbsp;&nbsp;If you see a "Down: 500" "DISCONNECTED"" error make sure the container containing your database is running on localhost: port 3306
+### 8. Verify Volume Persistence
+Test stopping and restarting your environment to ensure data persists properly:
 
-&nbsp;&nbsp;&nbsp;&nbsp;Ensure you have the correct credentials in your .env file
+docker compose down
+docker compose up -d
+
+---
+
+## Week 2 (6/22/2026)
+
+**Dependencies:** node, express, mysql2, dotenv, cors  
+**Dev Dependencies:** nodemon
+
+Started a Node.js project utilizing a MySQL connection pool module. The server seamlessly connects to the database environment and passes all health status verification checks.
+
+### 1. Install Project Dependencies
+Navigate to the backend codebase and install the required modules specified in your package.json:
+
+cd backend
+npm install
+
+### 2. Configure Environment Variables
+Create and open a .env file within your /backend directory:
+
+touch .env
+vim .env
+
+Populate the configuration values using your custom credentials:
+
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=[yourDatabasePassword]
+DB_NAME=rets
+
+* **PORT**: The network port for your backend server (Common defaults: 5000, 8000, 8080).
+* **DB_HOST**: Host ip address. Use localhost if running Node locally outside of the Docker network.
+* **DB_USER**: Database administrative user (default: root).
+
+### 3. Launch Development Server
+Ensure your Docker container from Week 1 is up and running, then start the Node service backend:
+
+npm run dev
+
+Upon a successful configuration, you will receive a database connection success message. Open your web browser and hit the health check route to verify everything works:
+
+http://localhost:5000/api/health
+
+* **Expected Output:** An "OK" "CONNECTED" JSON or text response.
+* **Troubleshooting:** If you see a Down: 500 "DISCONNECTED" status code, verify that your Docker container is actively mapping port 3306 on localhost and check your .env credentials.
