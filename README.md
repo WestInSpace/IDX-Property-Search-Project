@@ -42,7 +42,7 @@ services:
   idx-mysql-local:
     image: mysql:8.0
     container_name: idx-mysql-local
-    command: --socket=/tmp/mysql.sock
+    command: --socket=/tmp/mysql.sock #Put mysql.sock in a non-persistant location
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: [enter_your_password]
@@ -50,8 +50,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./init-scripts:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d #Maps local SQL files to run on startup
+      - db_data:/var/lib/mysql #Connects the permanent vault
 
 volumes:
   db_data:
@@ -68,7 +68,7 @@ Run the following command to build and launch the database container in detached
 Create a directory to temporarily store your SQL files for a faster import process:
 
 `mkdir mysql-files`  
-`cp [pathTo:rets_property.sql] ./mysql-files`
+`cp [pathTo:rets_property.sql] ./mysql-files`  
 `cp [pathTo:rets_openhouse.sql] ./mysql-files`
 
 ### 6. Import SQL Datasets
@@ -160,7 +160,7 @@ Ensure your Docker container from Week 1 is up and running, then start the Node 
 Upon a successful configuration, you will receive a database connection success message. Open your web browser and hit the health check route to verify everything works:
 
 `http://localhost:[portYourServerIsRunnignOn']/api/health`  
-make sure to fill in the place holder with the port you specified in your .env file
+*make sure to fill in the placeholder with the port you specified in your .env file*
 
 * **Expected Output:** An "OK" "CONNECTED" JSON or text response.
 * **Troubleshooting:** If you see a Down: 500 "DISCONNECTED" status code, verify that your Docker container is actively mapping to port 3306 on localhost and check your .env credentials.
