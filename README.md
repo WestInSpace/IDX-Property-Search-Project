@@ -159,7 +159,8 @@ Ensure your Docker container from Week 1 is up and running, then start the Node 
 
 Upon a successful configuration, you will receive a database connection success message. Open your web browser and hit the health check route to verify everything works:
 
-http://localhost:5000/api/health
+`http://localhost:[portYourServerIsRunnignOn']/api/health`  
+make sure to fill in the place holder with the port you specified in your .env file
 
 * **Expected Output:** An "OK" "CONNECTED" JSON or text response.
 * **Troubleshooting:** If you see a Down: 500 "DISCONNECTED" status code, verify that your Docker container is actively mapping to port 3306 on localhost and check your .env credentials.
