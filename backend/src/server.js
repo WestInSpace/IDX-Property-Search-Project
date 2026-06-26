@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
     res.json({ message: "REST API is running!" });
 });
 
-//Verify backend and database connectivity, visit: http://localhost:5000/api/health
+//Verify backend and database connectivity, visit: http://localhost:<PORT>/api/health
+//make sure to replace <PORT> with the port in your .env file that you are running the server on, usually port 5000 for local hosting
 //This is also done in app.listen and returned in immediately the terminal upon connection
 app.get('/api/health', async (req, res) => {
     try {

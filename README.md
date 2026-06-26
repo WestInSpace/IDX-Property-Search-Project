@@ -133,12 +133,17 @@ Started a Node.js project with a mysql connection pool module. Is able to connec
 &nbsp;&nbsp;&nbsp;&nbsp;Open the .env file:    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim .env    
 
-&nbsp;&nbsp;&nbsp;&nbsp;Put the following in your .env file, make sure to fill the placeholder with your information:    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORT=5000    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST=localhost    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_USER=root    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_PASSWORD=[YourDatabasePassword]    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_NAME=rets
+&nbsp;&nbsp;&nbsp;&nbsp;Put the following in your .env file, make sure to fill the &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholders with your information:    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORT=[port]    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST=[database host ip]    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_USER=[database user]    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_PASSWORD=[yourDatabasePassword]    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DB_NAME=your_database_name    
+
+&nbsp;&nbsp;&nbsp;&nbsp;Where:    
+&nbsp;&nbsp;&nbsp;&nbsp;PORT is the port you want to run your server on, for local &nbsp;&nbsp;&nbsp;&nbsp;hosting ussually use 5000, 8000. 8080, 3000, 8081 or 8082    
+&nbsp;&nbsp;&nbsp;&nbsp;DB_HOST is the ip address of the database host, for use inside the container use: localhost, if you're not running inside your container use the name of your container.    
+&nbsp;&nbsp;&nbsp;&nbsp;DB_user is the username used to log into the database, for a local hosted databse use: root    
 
 3. Start the server    
 &nbsp;&nbsp;&nbsp;&nbsp;Start the container that contains the database that was created in week 1.    
