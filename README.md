@@ -31,7 +31,7 @@ Rename the sample-compose.yml file to compose.yml:
 Navigate to /backend/ and open the compose.yml file in your preferred text editor (like vim):  
 `vim compose.yml`
 
-Update the MYSQL_ROOT_PASSWORD feild inside the .yml file to be the password you want for your database container.  
+Update the MYSQL_ROOT_PASSWORD field inside the .yml file to be the password you want for your database container.  
 MYSQL_ROOT_PASSWORD: [enter_your_password]  
 *If using Vim, press Esc, type :wq, and hit Enter to save and exit.*
 
@@ -61,7 +61,7 @@ Access the interactive MySQL shell inside the container:
 `docker exec -it idx-mysql-local mysql -u root -p`  
 *Enter your root password when prompted*
 
-Your terminal prompt should now display mysql>  
+Your terminal prompt should now display: mysql>  
 Verify your tables by executing the following queries:
 
 `SHOW DATABASES;`  
