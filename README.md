@@ -47,7 +47,7 @@ Run the following command to build and launch the database container in detached
 
 ### 6. Import SQL Datasets
 Import the data files into the database. This will create a new table for each SQL file. 
-> Note: This step may take up to two hours depending on your computer's hardware specs.  
+> Note: This step may take around three hours depending on your computer's hardware specs.  
 
 Use the -vv flag and grep to show a minimal progress log.
 
