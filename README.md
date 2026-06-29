@@ -35,22 +35,27 @@ Update the MYSQL_ROOT_PASSWORD feild inside the .yml file to be the password you
 MYSQL_ROOT_PASSWORD: [enter_your_password]  
 *If using Vim, press Esc, type :wq, and hit Enter to save and exit.*
 
-### 4. Start the Container
+### 4. Get SQL Files
+Download the sql files you will turn into tables in your database.  
+Place the files in a directory called sql-files inside the /backend directory  
+The files should be named: rets_openhouse.sql and rets_property.sql
+
+### 5. Start the Container
 Run the following command to build and launch the database container in detached mode:
 
 `docker compose up -d`
 
-### 5. Import SQL Datasets
+### 6. Import SQL Datasets
 Import the data files into the database. This will create a new table for each SQL file. 
 > Note: This step may take up to an hour depending on your computer's hardware specs. We use the -vv flag and grep to show a minimal progress log.
 
 Import the properties data:  
-`docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_property.sql | grep affected`
+`docker exec -i idx-mysql-local mysql -u root -p'your_password' -vv rets < ./sql-files/rets_property.sql | grep affected`
 
 Import the open house data:  
-`docker exec -i idx-mysql-local mysql --socket=/tmp/mysql.sock -u root -p'your_password' -vv rets < ./mysql-files/rets_openhouse.sql | grep affected`
+`docker exec -i idx-mysql-local mysql -u root -p'your_password' -vv rets < ./sql-files/rets_openhouse.sql | grep affected`
 
-### 6. Confirm Database Status
+### 7. Confirm Database Status
 Access the interactive MySQL shell inside the container:
 
 `docker exec -it idx-mysql-local mysql -u root -p`  
@@ -80,7 +85,7 @@ Verify you can query table layouts and structures successfully:
 Once confirmed, exit the MySQL prompt:  
 `exit;`
 
-### 7. Verify Volume Persistence
+### 8. Verify Volume Persistence
 Test stopping and restarting your environment to ensure data persists properly:
 
 `docker compose down`  
