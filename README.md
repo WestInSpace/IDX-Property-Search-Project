@@ -47,7 +47,9 @@ Run the following command to build and launch the database container in detached
 
 ### 6. Import SQL Datasets
 Import the data files into the database. This will create a new table for each SQL file. 
-> Note: This step may take up to an hour depending on your computer's hardware specs. We use the -vv flag and grep to show a minimal progress log.
+> Note: This step may take up to two hours depending on your computer's hardware specs.  
+
+Use the -vv flag and grep to show a minimal progress log.
 
 Import the properties data:  
 `docker exec -i idx-mysql-local mysql -u root -p'your_password' -vv rets < ./sql-files/rets_property.sql | grep affected`
