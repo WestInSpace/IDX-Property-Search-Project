@@ -2,12 +2,11 @@
 *.csv
 *.xlsx
 *.sql
+sql-files/
 
 #credentials
 .env
+compose.yml
 
 #ignore the code for external libraries
 node_modules/
-
-#ignore the local database container
-idx-mysql-local/
