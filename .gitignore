@@ -10,3 +10,6 @@ compose.yml
 
 #ignore the code for external libraries
 node_modules/
+
+#ignore my checkpoint folder
+Checkpoint/

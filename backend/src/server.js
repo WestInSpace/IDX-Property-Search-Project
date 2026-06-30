@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import dbPool from './config/db.js'; // Imports the MySQL pool
+import propertyRouter from './routes/properties.js'; //Import the properties router
 import 'dotenv/config';
 
 //Imports using, type: commonjs, in package.json
@@ -46,6 +47,9 @@ app.get('/api/health', async (req, res) => {
         });
     }
 });
+
+//Mount the properties Router
+app.use('/api/properties', propertyRouter);
 
 // 3. Start the Server & Test DB Connection
 app.listen(PORT, async () => {
