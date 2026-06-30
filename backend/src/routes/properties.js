@@ -8,7 +8,7 @@ router.get('/', async(req, res) => {
         //Get all the query params
         const {city, zipcode, minPrice, maxPrice, beds, baths} = req.query;
         
-        //Parse and sanitize query parameters
+        //Parse and sanitize limit and offset query parameters
         const limit = parseInt(req.query.limit, 10) || 20;
         const offset = parseInt(req.query.offset, 10) || 0;
         //Varify / sanitize the data
@@ -18,12 +18,12 @@ router.get('/', async(req, res) => {
         //Array to build list of query and values
         let conditions = [];
         let queryVals = [];
-        let inputErrors = [];
+        let inputErrors = []; //Will hold any errors in the paramaters
 
         //Add the filters if they were provided
         if(city){
-            conditions.push('L_City = ?');
-            queryVals.push(city);
+            conditions.push('TRIM(L_City) = ?'); //could user LOWER(TRIM()) here to remove whitespace and make case insensitive, but when this is done the benifite of the indexes is lost.
+            queryVals.push(city.trim().toLowerCase()); //Make sure the input city is all lowercase with no whitespace
         }
         if(zipcode){
             const parsed = parseInt(zipcode)

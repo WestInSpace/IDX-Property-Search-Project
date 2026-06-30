@@ -140,3 +140,35 @@ Upon a successful configuration, you will receive a database connection success 
 
 * **Expected Output:** An "OK" "CONNECTED" JSON or text response.
 * **Troubleshooting:** If you see a Down: 500 "DISCONNECTED" status code, verify that your Docker container is actively mapping to port 3306 on localhost and check your .env credentials.
+
+---
+
+## Week 3 (6/29/2026)
+
+start the database as shown in week 1 by navigaing to the folder that contains the compose.yml file and running:  
+`docker compose up -d`
+
+Start the server as shown in week 2 by navigating to the folder that contains server.js and running  
+`npm run dev`
+
+You can then start making querries by typing the following into your browser:  
+http://localhost:<your port number, ussually 5000>/api/properties?<Your filters>
+
+There is support to filter by: city, zipcode, minPrice, maxPrice, beds, and baths.  
+You can also set the number of listings shown using limit and an offset to show the listings between offset and limit.
+
+Structure the filter as such:  
+<filterType>=<vilterValue>
+
+Seperate each filter with the character: '&'
+
+This is for an example, the default values for limit is already 20 and the default values for offset is already 0.  
+For example a filter that filters for 20 properties with an offset of 0 in the city of orlando with 2 baths and 3 beds between $300000 and $500000 would look like this:  
+city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
+
+So the total api call would look like this:  
+http://localhost:<your port number, ussually 5000>/api/properties?city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
+
+
+
+
