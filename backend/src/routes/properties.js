@@ -3,6 +3,7 @@ import pool from '../config/db.js';
 
 const router = express.Router(); //modular express router to allow relative pathing
 
+//search endpoint to filter all the properties by: city, zipcode, minPrice, maxPrice, beds, or baths
 router.get('/', async(req, res) => {
     try{
         //Get all the query params
@@ -117,6 +118,69 @@ router.get('/', async(req, res) => {
     }catch (error){
         console.error('Error in GET /api/properites:', error); //print the error to the terminal
         res.status(500).json({error: 'Internal Server Error'}); //message displayed to user on fail
+    }
+});
+
+//search endpoint to get open house events for a property by its id
+router.get('/:id/openhouses', async (req, res) => {
+
+    try{
+        //get the id of the property we are getting the open houses for
+        const propertyId = Number(req.params.id);
+        
+        //get the property
+        const [property] = await pool.query('SELECT L_ListingID FROM rets_property WHERE id = ?', propertyId);
+        
+        //make sure the property exists
+        if(property.length == 0){
+            console.log("The property does not exist");
+            return res.status(404).json({ message: 'Property not found' });
+        }
+        
+        //get the L_ListingID
+        const listingid = property[0].L_ListingID;
+
+        //querry the database rets_openhous table for the openhouses with the corrosponding property id
+        const [openHouses] = await pool.query('SELECT * FROM rets_openhouse WHERE L_ListingID = ?', [listingid]);
+
+        //return to the openhouses if there are any
+        if(openHouses.length > 0){
+            //res.json(openhouses);
+            res.type('json'); //tell the browser that this is already valid json
+
+            return res.send(openHouses[0].all_data); //send the raw string directly from the openHouse
+        }else
+            res.status(404).json({ message: "No open house data found" });
+
+    }catch(err){
+        console.log("Error fetching open houses.");
+        res.status(500).json({ error: err.message});
+    }
+
+});
+
+
+//search endpoint to get a single property by id
+router.get('/:id', async (req, res) => {
+    try{
+        //get the id from the URL param and convert it to a javascript number
+        const propertyId = Number(req.params.id);
+    
+        //querry the database
+        //use await to pause execution until the database responds
+        const [property] = await pool.query('SELECT * FROM rets_property WHERE id = ?', [propertyId]);
+    
+        //account for an error / incorrect id
+        if(property.length == 0)
+            return res.status(404).json({ message: 'Property not found, check that the id is valid' });
+    
+        //send back the property object
+        res.json(property[0]);
+    
+    }catch(err){
+        //catch any connection or syntax errors
+        console.error("Database error occurred:", err);
+        res.status(500).json({ error: err.message });
     }
 });
 

@@ -18,6 +18,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); // Allows the API to parse incoming JSON request bodies
 
+//log requests to the console
+app.use((req, res, next) => {
+
+    const startTime = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - startTime;
+        console.log(`[${req.method}] ${req.originalUrl} - status: ${res.statusCode} (${duration}ms)`);
+    });
+    next();
+});
+
 // 2. Base Test Route
 app.get('/', (req, res) => {
     res.json({ message: "REST API is running!" });
