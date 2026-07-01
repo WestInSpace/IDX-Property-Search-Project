@@ -151,14 +151,14 @@ start the database as shown in week 1 by navigaing to the folder that contains t
 Start the server as shown in week 2 by navigating to the folder that contains server.js and running  
 `npm run dev`
 
-You can then start making querries by typing the following into your browser:  
-http://localhost:<your port number, ussually 5000>/api/properties?<Your filters>
+You can then start making filtered querries by typing the following into your browser:  
+http://localhost:<your port number, usually 5000>/api/properties?<Your filters>
 
 There is support to filter by: city, zipcode, minPrice, maxPrice, beds, and baths.  
 You can also set the number of listings shown using limit and an offset to show the listings between offset and limit.
 
 Structure the filter as such:  
-<filterType>=<vilterValue>
+[filterType]=[vilterValue]
 
 Seperate each filter with the character: '&'
 
@@ -169,6 +169,20 @@ city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
 So the total api call would look like this:  
 http://localhost:<your port number, ussually 5000>/api/properties?city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
 
+---
 
+## Week 4 (7/3/2026)
 
+start the database as shown in week 1 by navigaing to the folder that contains the compose.yml file and running:  
+`docker compose up -d`
 
+Start the server as shown in week 2 by navigating to the folder that contains server.js and running  
+`npm run dev`
+
+You can then visit the follwoing to see a single property:  
+http://localhost:<your port number, ussually 5000>/api/properties/<PropertyID>
+
+You can then get the open houses for a property by visiting the following:  
+http://localhost:<your port number, ussually 5000>/api/properties/<PropertyID>/openhouses
+
+Also, look in the terminal, where you ran npm run dev and you will see logs for requests that show the start time, method, url, status and time the request took.
