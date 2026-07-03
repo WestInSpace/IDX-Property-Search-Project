@@ -151,6 +151,20 @@ start the database as shown in week 1 by navigaing to the folder that contains t
 Start the server as shown in week 2 by navigating to the folder that contains server.js and running  
 `npm run dev`
 
+Varify that the table indexes exit by logging into mysql (showsn in week 1) and runnging:  
+`SHOW INDEX FROM [your_table_name];`
+
+If you get no output or you don't have indexes for city and zip then add them by running:  
+`ALTER TABLE [your_table_name] ADD INDEX idx_city (L_City);`  
+`ALTER TABLE [your_table_name] ADD INDEX idx_zipcode (L_zipcode);`  
+`CREATE INDEX idx_bed_bath ON [your_table_name] (L_Keyword2, LM_Dec_3);`
+`CREATE INDEX idx_city_price ON [your_table_name] (L_City, L_SystemPrice);`
+
+If you get an error about an invalid default value:   
+Change the data checking of your mysql to be less strict then try adding the indexes again:  
+`SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';`  
+`SET SESSION sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';`
+
 You can then start making filtered querries by typing the following into your browser:  
 http://localhost:<your port number, usually 5000>/api/properties?<Your filters>
 
