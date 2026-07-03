@@ -1,7 +1,7 @@
 # Requested files not to include: source data files, csv files, and Excel files.
 *.csv
 *.xlsx
-*.sql
+#*.sql
 sql-files/
 
 #credentials
