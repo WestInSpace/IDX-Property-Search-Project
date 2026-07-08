@@ -187,11 +187,13 @@ http://localhost:<your port number, ussually 5000>/api/properties?city=orlando&b
 
 ## Week 4 (7/3/2026)
 
-start the database as shown in week 1 by navigaing to the folder that contains the compose.yml file and running:  
-`docker compose up -d`
+start the database as shown in week 1 by navigaing to the directory that contains the compose.yml file for the container and running:  
+`docker compose up -d`  
+*Note: this should run on the local port 3306*
 
-Start the server as shown in week 2 by navigating to the folder that contains server.js and running  
-`npm run dev`
+Start the server as shown in week 2: You can start it from inside the same directory as the compose.yml file, run:  
+`npm run dev`  
+*Note: this should run on the local port 5000*
 
 You can then visit the follwoing to see a single property:  
 http://localhost:<your port number, ussually 5000>/api/properties/<PropertyID>
@@ -200,3 +202,27 @@ You can then get the open houses for a property by visiting the following:
 http://localhost:<your port number, ussually 5000>/api/properties/<PropertyID>/openhouses
 
 Also, look in the terminal, where you ran npm run dev and you will see logs for requests that show the start time, method, url, status and time the request took.
+
+---
+
+## Week 5 (7/13/2026)
+
+Start the database as shown in week 1 by navigaing to the directory that contains the compose.yml file for the container and running:  
+`docker compose up`  
+*Note: this should run on the local port 3306*
+
+Start the sever as shown in week 2 by navigating to the folder that contains server.js
+`npm run dev`  
+*Note: this should run on the local port 5000*
+
+Start the frontend server by navigating to the frontend directory and running:
+`npm run dev`  
+*Note: this should run on the local port 3000*
+
+You can then visit this url (if the front end is on port 3000) to see the week 5 progress:  
+http://localhost:3000/
+
+It should display a grid of 24 properties and at the bottom you can navigate to other pages.  
+Right now it just displays all the properties, but in the future update the user will be able to filter the properties to only display certain ones.  
+
+If you see an error make sure the database continaer is running correctly, the backedn server is running correctly and has connected to the continaer, and make sure the frontend server has been started.  
