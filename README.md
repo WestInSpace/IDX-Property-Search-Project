@@ -157,7 +157,7 @@ Varify that the table indexes exit by logging into mysql (showsn in week 1) and 
 If you get no output or you don't have indexes for city and zip then add them by running:  
 `ALTER TABLE [your_table_name] ADD INDEX idx_city (L_City);`  
 `ALTER TABLE [your_table_name] ADD INDEX idx_zipcode (L_zipcode);`  
-`CREATE INDEX idx_bed_bath ON [your_table_name] (L_Keyword2, LM_Dec_3);`
+`CREATE INDEX idx_bed_bath ON [your_table_name] (L_Keyword2, LM_Dec_3);`  
 `CREATE INDEX idx_city_price ON [your_table_name] (L_City, L_SystemPrice);`
 
 If you get an error about an invalid default value:   
@@ -180,7 +180,7 @@ This is for an example, the default values for limit is already 20 and the defau
 For example a filter that filters for 20 properties with an offset of 0 in the city of orlando with 2 baths and 3 beds between $300000 and $500000 would look like this:  
 city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
 
-So the total api call would look like this:  
+So the total api call would look something like this:  
 http://localhost:<your port number, ussually 5000>/api/properties?city=orlando&baths=2&beds=3&minPrice=300000&maxPrice=500000&limit=20&offset=0
 
 ---
