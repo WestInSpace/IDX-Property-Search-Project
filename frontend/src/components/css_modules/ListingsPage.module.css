@@ -1,0 +1,42 @@
+/* Container for the entire bottom pagination bar */
+.paginationContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 20px;
+	border-top: 1px solid #e0e0e0;
+	margin-top: 20px;
+}
+
+/* Base style for the active, clickable navigation buttons */
+.navButton {
+	padding: 10px 20px;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
+	background-color: #ffffff;
+	color: #333333;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover interaction for active buttons */
+.navButton:hover:not(:disabled) {
+	background-color: #f0f0f0;
+	border-color: #bbb;
+}
+
+/* Disabled state style when there are no more pages */
+.navButton:disabled {
+	background-color: #f5f5f5;
+	color: #aaaaaa;
+	cursor: not-allowed;
+	border-color: #e0e0e0;
+}
+
+/* The page text label style */
+.pageIndicator {
+	margin: 0;
+	color: #666665;
+	font-size: 1.1rem;
+}

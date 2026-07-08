@@ -105,7 +105,6 @@ router.get('/', async(req, res) => {
         
         //return the data and pagination metadata
         res.json({
-            data: properties,
             pagination: {
                 totalItems,
                 totalPages,
@@ -113,7 +112,8 @@ router.get('/', async(req, res) => {
                 itemsPerPage: sanLimit,
                 hasNextPage: sanOffset + sanLimit < totalItems,
                 hasPrevPage: sanOffset > 0
-            }
+            },
+			property: properties
         });
     }catch (error){
         console.error('Error in GET /api/properites:', error); //print the error to the terminal

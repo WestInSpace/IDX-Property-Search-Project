@@ -1,0 +1,33 @@
+/* property card style */
+.propertyCard {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Base style for the card details body */
+.cardDetails {
+    padding: 15px;
+    flex-grow: 1;
+    background-color: #ffffff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* hover effect for property card */
+.propertyCard:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+	background-color: #cdcdcd;
+	cursor: pointer;
+}
+
+/* hover effect on the cardDetails */
+.propertyCard:hover .cardDetails {
+    background-color: #cdcdcd;
+}
+
