@@ -47,21 +47,12 @@ function PropertyCard({ property }){
 		/>
 		{/* Property Details */}
 		<div className={styles.cardDetails}>
-			<h3 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', color: '#332' }}>
-				${formatPrice(price)}
-			</h3>
-			<p style={{ margin: '0 0 5px 0', color: '#665', fontWeight: 'bold' }}>{address}</p>
-			<p style={{ margin: '0 0 15px 0', color: '#998', fontSize: '0.9rem' }}>{city}, {state}</p>
+			<h3 className={styles.priceStyle}> ${formatPrice(price)} </h3>
+			<p className={styles.addressStyle}>{address}</p>
+			<p className={styles.cityStateStyle}>{city}, {state}</p>
 
 			{/* Specs bar */}
-			<div style={{
-				display: 'flex',
-				gap: '15px',
-				fontSize: '0.85rem',
-				color: '#555',
-				borderTop: '1px solid #f0f0f0',
-				paddingTop: '10px'
-			}}>
+			<div className={styles.specsBar}>
 				<span><strong>{beds}</strong> Beds</span>
 				<span><strong>{baths}</strong> Baths</span>
 				<span><strong>{sqft}</strong> Square Feet</span>

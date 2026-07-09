@@ -1,0 +1,22 @@
+/* main page style */
+.mainStyle {
+	background-color: #f9f9f9;
+	min-height: 100vh;
+	font-family: sans-serif;
+}
+
+/* header style */
+.headerBackground {
+	background-color: #BABABA;
+	padding: 15px 20px;
+	border-bottom: 1px solid #eaeaea;
+}
+
+/* header 1 style */
+.header {
+	margin: 0;
+	font-size: 1.5rem;
+	color: #0056b3;
+}
+
+

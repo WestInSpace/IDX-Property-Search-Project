@@ -223,6 +223,6 @@ You can then visit this url (if the front end is on port 3000) to see the week 5
 http://localhost:3000/
 
 It should display a grid of 24 properties and at the bottom you can navigate to other pages.  
-Right now it just displays all the properties, but in the future update the user will be able to filter the properties to only display certain ones.  
+Right now it just displays all the properties, but in future updates the user will be able to filter the properties to only display certain ones.  
 
 If you see an error make sure the database continaer is running correctly, the backedn server is running correctly and has connected to the continaer, and make sure the frontend server has been started.  

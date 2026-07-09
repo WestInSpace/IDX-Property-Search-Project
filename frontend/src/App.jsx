@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import ListingsPage from './components/ListingsPage';
+import styles from './App.module.css';
 
 function App() {
 	return (
-		<div style={{ backgroundColor: '#f9f9f9', minHeight: '100vh', fontFamily: 'sans-serif'}}>
+		<div className={styles.mainStyle}>
 			{/* Navigation header */}
-			<header style={{ backgroundColor: '#fff', padding: '15px 20px', borderBottom: '1px solid #eaeaea' }}>
-				<h1 style={{ margin: 0, fontSize: '1.5rem', color: '#0056b3' }}>IDX Real Estate Platform</h1>
+			<header className={styles.headerBackground}>
+				<h1 className={styles.header}>IDX - Exchange Real Estate Platform</h1>
 			</header>
 
 			<main>

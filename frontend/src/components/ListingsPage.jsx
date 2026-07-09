@@ -81,9 +81,9 @@ function ListingsPage(){
 	if (error) return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>;
 
 	return (
-		<div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-			<h2 style={{ marginBottom: '20px', color: '#221'}}>Current MLS Listings</h2>
-			<h3 style={{ textAlign: 'left', margin: '0', color: '#666665', fontSize: '1.1rem' }}>Showing properties {fromIndex}-{toIndex} of {totalItems} properties</h3>
+		<div className={styles.background}>
+			<h2 className={styles.header2}>Current MLS Listings</h2>
+			<h3 className={styles.header3}>Showing properties {fromIndex}-{toIndex} of {totalItems} properties</h3>
 			{properties.length === 0 ? (
 				<p>No properties found matching your filters.</p>
 			) : (

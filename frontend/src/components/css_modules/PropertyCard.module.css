@@ -4,18 +4,53 @@
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-	background-color: #ffffff;
+	background-color: #555555;
 	display: flex;
 	flex-direction: column;
 	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-/* Base style for the card details body */
+/* style for the card details body */
 .cardDetails {
     padding: 15px;
     flex-grow: 1;
-    background-color: #ffffff;
+    background-color: #444444;
     transition: background-color 0.2s ease-in-out;
+}
+
+/* style of the price text */
+.priceStyle {
+	margin: 0 0 10px 0;
+	font-size: 1.2rem;
+	color: #EEEEEE;
+    transition: color 0.2s ease-in-out;
+}
+
+/* style of the address text */
+.addressStyle {
+	margin: 0 0 5px 0;
+	color: #AAAAAA;
+	font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+/* style of the city and state text */
+.cityStateStyle {
+	margin: 0 0 15px 0;
+	color: #999999;
+	font-size: 0.9rem;
+    transition: color 0.2s ease-in-out;
+}
+
+/* style for the specs bar text */
+.specsBar {
+	display: flex;
+	gap: 15px;
+	font-size: 0.85rem;
+	color: #999999;
+	border-top: 1px solid #f0f0f0;
+	padding-top: 10px;
+    transition: color 0.2s ease-in-out;
 }
 
 /* hover effect for property card */
@@ -30,4 +65,29 @@
 .propertyCard:hover .cardDetails {
     background-color: #cdcdcd;
 }
+
+/* style of price text on hover over property card */
+.propertyCard:hover .priceStyle {
+    color: #222222;
+}
+
+/* style of address text on hover over property card */
+.propertyCard:hover .addressStyle {
+    color: #555555;
+}
+
+/* style of city and state text on hover over property card */
+.propertyCard:hover .cityStateStyle {
+    color: #444444;
+}
+
+/* style of specs bar text on hover over property card */
+.propertyCard:hover .specsBar {
+    color: #444444;
+}
+
+
+
+
+
 
