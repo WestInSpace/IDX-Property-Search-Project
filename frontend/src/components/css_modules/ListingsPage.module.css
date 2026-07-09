@@ -13,6 +13,7 @@
 	color: #DDDDDD;
 }
 
+/* header 3 style */
 .header3 {
 	text-align: left;
 	margin-bottom: 5px;
@@ -20,13 +21,21 @@
 	font-size: 1.1rem;
 }
 
+/* the style of the grid */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 20px;
+}
+
+
 /* Container for the entire bottom pagination bar */
 .paginationContainer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding-top: 20px;
-	border-top: 1px solid #e0e0e0;
+	border-top: 1px solid #E0E0E0;
 	margin-top: 20px;
 }
 
@@ -34,7 +43,7 @@
 .navButton {
 	padding: 10px 20px;
 	border-radius: 6px;
-	border: 1px solid #dcdcdc;
+	border: 1px solid #DCDCDC;
 	background-color: #BBBBBB;
 	color: #333333;
 	cursor: pointer;
@@ -44,8 +53,8 @@
 
 /* Hover interaction for active buttons */
 .navButton:hover:not(:disabled) {
-	background-color: #A0A0A0;
-	border-color: #bbb;
+	background-color: #808080;
+	border-color: #BBBBBB;
 }
 
 /* Disabled state style when there are no more pages */
@@ -53,7 +62,7 @@
 	background-color: #727272;
 	color: #AAAAAA;
 	cursor: not-allowed;
-	border-color: #e0e0e0;
+	border-color: #E0E0E0;
 }
 
 /* The page text label style */

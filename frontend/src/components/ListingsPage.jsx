@@ -88,11 +88,7 @@ function ListingsPage(){
 				<p>No properties found matching your filters.</p>
 			) : (
 				/* CSS Grid Container */
-				<div style={{
-					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-					gap: '20px'
-				}}>
+				<div className={styles.grid}>
 					{properties.map(property => (
 						<PropertyCard key={property.id} property={property} />
 			
@@ -109,9 +105,9 @@ function ListingsPage(){
 				>
 					&larr; Previouse
 				</button>
-				<h3 className={styles.pageIndicator}>
+				<page className={styles.pageIndicator}>
 					Page {currentPage} or {totalPages}
-				</h3>
+				</page>
 
 				<button
 					onClick={handleNext}
