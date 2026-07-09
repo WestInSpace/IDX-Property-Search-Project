@@ -43,7 +43,7 @@ function PropertyCard({ property }){
 			src={imgUrl}
 			//alt={address} //If there are no photos just display the address
 			alt={"[No Photos Available]"} //If there are no photos just display [No Photos Available]
-			style={{width: '100%', height: '200px', objectFit: 'cover'}}
+			className={styles.imgStyle}
 		/>
 		{/* Property Details */}
 		<div className={styles.cardDetails}>

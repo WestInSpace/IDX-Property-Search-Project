@@ -10,6 +10,16 @@
 	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
+.imgStyle {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	display: flex;
+	justify-content: center; /* horizontal cneter */
+	align-items: center; /* virtical center */
+	color: #111111; /*alt text color */
+}
+
 /* style for the card details body */
 .cardDetails {
     padding: 15px;
