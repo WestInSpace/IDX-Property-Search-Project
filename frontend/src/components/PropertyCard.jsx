@@ -1,7 +1,7 @@
 //PropertyCard component, This is the object that will be used to display property cards in the grid inside the ListingsPage component
 
 import React from 'react';
-import styles from './css_modules/PropertyCard.module.css'; //Import styles for the propertyCard
+import styles from '../css_modules/PropertyCard.module.css'; //Import styles for the propertyCard
 
 function PropertyCard({ property }){
 	//Declare database variables

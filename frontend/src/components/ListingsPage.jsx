@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { propertyService } from '../api/propertyService';
 import PropertyCard from './PropertyCard';
-import styles from './css_modules/ListingsPage.module.css';
+import PropertyFilters from './PropertyFilters';
+import styles from '../css_modules/ListingsPage.module.css'; //import styles for the ListingsPage
 
 function ListingsPage(){
 	const[properties, setProperties] = useState([]); //store the properties returned from the backend
@@ -12,6 +13,16 @@ function ListingsPage(){
 	const limit = 24; //set the limit for how many listings will be on a page
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	
+	//Keep track of the filters
+	const [activeFilters, setActiveFilters] = useState({
+		city: '',
+		zipcode: '',
+		minPrice: '',
+		maxPrice: '',
+		beds: '',
+		baths: ''
+	});
 
 	useEffect(() => {
 		const fetchListings = async () => {
@@ -23,15 +34,15 @@ function ListingsPage(){
 
 				//define filters
 				const paginationParams = {
-					//city: 'Solana Beach',
-					//zipcode: 1234
-					//minPrice: 300000,
-					//maxPrice: 4395000,
-					//beds: 3,
-					//baths: 2,
+					...(activeFilters.city && { city: activeFilters.city }),
+					...(activeFilters.zipcode && { zipcode: activeFilters.zipcode }),
+					...(activeFilters.minPrice && { minPrice: activeFilters.minPrice }),
+					...(activeFilters.maxPrice && { maxPrice: activeFilters.maxPrice }),
+					...(activeFilters.beds && { beds: activeFilters.beds }),
+					...(activeFilters.baths && { baths: activeFilters.baths }),
 					limit: limit,
 					offset: currentOffset
-				}
+				};
 
 				const backendObj = await propertyService.getProperties(paginationParams);
 
@@ -46,7 +57,13 @@ function ListingsPage(){
 			}
 		};
 		fetchListings();
-	}, [page]);
+	}, [page, activeFilters]);
+
+	//Fires when child submit updates properties layout context, update the filters
+	const handleApplyFilters = (newFilters) => {
+		setActiveFilters(newFilters);
+		setPage(1);
+	};
 
 	//get the page information
 	const {
@@ -83,9 +100,16 @@ function ListingsPage(){
 	return (
 		<div className={styles.background}>
 			<h2 className={styles.header2}>Current MLS Listings</h2>
+			{/* mount the component that allows the user to enter filters */}
+			{/* keep the filter persistant until the user changes them */}
+			<PropertyFilters
+				onApplyFilters={handleApplyFilters}
+				activeFilters={activeFilters}
+			/>
+
 			<h3 className={styles.header3}>Showing properties {fromIndex}-{toIndex} of {totalItems} properties</h3>
 			{properties.length === 0 ? (
-				<p>No properties found matching your filters.</p>
+				<p>No properties found matching chosen filters.</p>
 			) : (
 				/* CSS Grid Container */
 				<div className={styles.grid}>

@@ -58,7 +58,7 @@ router.get('/', async(req, res) => {
             if(isNaN(parsed) || parsed < 0){
                 inputErrors.push("beds not a valid number.");
             }else{
-                conditions.push('L_Keyword2 = ?'); //total number of beds according to rets_property.sql
+                conditions.push('L_Keyword2 >= ?'); //total number of beds according to rets_property.sql
                 queryVals.push(parsed);
             }
         }
@@ -67,7 +67,7 @@ router.get('/', async(req, res) => {
             if(isNaN(parsed) || parsed < 0){
                 inputErrors.push("baths not a valid number.");
             }else{
-                conditions.push('LM_Dec_3 = ?'); //total number of baths according to rets_property.sql
+                conditions.push('LM_Dec_3 >= ?'); //total number of baths according to rets_property.sql
                 queryVals.push(parsed);
             }
         }

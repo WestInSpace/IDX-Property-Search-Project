@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import ListingsPage from './components/ListingsPage';
-import styles from './App.module.css';
+import styles from './css_modules/App.module.css';
 
 function App() {
 	return (
