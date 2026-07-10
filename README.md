@@ -226,3 +226,23 @@ It should display a grid of 24 properties and at the bottom you can navigate to 
 Right now it just displays all the properties, but in future updates the user will be able to filter the properties to only display certain ones.  
 
 If you see an error make sure the database continaer is running correctly, the backedn server is running correctly and has connected to the continaer, and make sure the frontend server has been started.  
+
+---
+
+## Week 6 (7/20/2026)
+
+Added the ability to filter properties from the front end.
+
+Start the database container, backend server, and frontend server as shown in week 5
+
+visit this url:  
+http://localhost:3000/
+
+You will now see a bar at the top. If you click the "-- Show Filters" button the filter options will be displayed  
+Type in the desired filters and click the "Apply" button, or click the "Clear" button to reset your filter choices.
+
+You might also notice that I have updated the theme, giving it a more aesthetically pleasing dark theme.
+---
+**UNIT TESTS TO BE ADDED**
+---
+
