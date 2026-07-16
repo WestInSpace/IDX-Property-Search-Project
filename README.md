@@ -246,11 +246,13 @@ Type in the desired filters and click the "Apply" button, or click the "Clear" b
 
 You might also notice that I have updated the theme, giving it a more aesthetically pleasing dark theme.
 
-Unit tests have also been added.  
+Unit tests have also been added.
+
 There are three unit tests for the API client module:  
 1. Tests that property and pagination data is returned correctly.  
 2. Tests that the url that is built to support filters is built properly.  
 3. Test how errors are handeled.  
+
 And there are also three unit tests for the propertyFilters component:  
 1. Tests that the PropertyFilters are rendering on the screen.  
 2. Tests that the user is able to type in the boxes.  
