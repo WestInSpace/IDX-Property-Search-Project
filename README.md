@@ -215,6 +215,9 @@ Start the sever as shown in week 2 by navigating to the folder that contains ser
 `npm run dev`  
 *Note: this should run on the local port 5000*
 
+Before starting the frontend server install needed dependencies for the frontend by navigating to the /frontend/ folder and running:  
+`npm install`
+
 Start the frontend server by navigating to the frontend directory and running:
 `npm run dev`  
 *Note: this should run on the local port 3000*
@@ -242,7 +245,25 @@ You will now see a bar at the top. If you click the "-- Show Filters" button the
 Type in the desired filters and click the "Apply" button, or click the "Clear" button to reset your filter choices.
 
 You might also notice that I have updated the theme, giving it a more aesthetically pleasing dark theme.
----
-**UNIT TESTS TO BE ADDED**
----
+
+Unit tests have also been added.  
+There are three unit tests for the API client module:  
+1. Tests that property and pagination data is returned correctly.  
+2. Tests that the url that is built to support filters is built properly.  
+3. Test how errors are handeled.  
+And there are also three unit tests for the propertyFilters component:  
+1. Tests that the PropertyFilters are rendering on the screen.  
+2. Tests that the user is able to type in the boxes.  
+3. Tests that when the apply button is pressed the draft is sent off.
+
+To run these tests navigate to the folder: /frontend/ in your terminal and first install dependencies:  
+`npm install`  
+Next, you can run the unit tests by running:  
+`npm test`
+
+You should see:  
+Test Files 2 passed  
+Tests 6 passed
+
+
 

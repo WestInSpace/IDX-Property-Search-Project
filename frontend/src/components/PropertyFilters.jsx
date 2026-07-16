@@ -1,5 +1,4 @@
 /* The componenet allowing the user to enter filters to search for properties */
-
 import React, { useState, useEffect } from 'react';
 import styles from '../css_modules/PropertyFilters.module.css'; //import styles for PropertyFilters
 
