@@ -264,8 +264,9 @@ Next, you can run the unit tests by running:
 `npm test`
 
 You should see:  
-<span style="color:green">Test Files 2 passed</span>  
-<span style="color:green">Tests 6 passed</span>
+$${\color{green}\text{Test Files 2 passed}}$$  
+$${\color{green}\text{Tests 6 passed}}$$
+
 
 
 
