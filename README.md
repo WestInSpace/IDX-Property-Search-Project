@@ -264,8 +264,8 @@ Next, you can run the unit tests by running:
 `npm test`
 
 You should see:  
-Test Files 2 passed  
-Tests 6 passed
+<span style="color:green">Test Files 2 passed</span>  
+<span style="color:green">Tests 6 passed</span>
 
 
 
