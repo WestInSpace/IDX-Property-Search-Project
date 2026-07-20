@@ -2,7 +2,6 @@ services:
   mysql-db:
     image: mysql:8.0
     container_name: [containerName]
-#    command: --socket=/tmp/mysql.sock #Put mysql.sock in a non-persistant location
 #    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: [Enter your password]
@@ -10,10 +9,10 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - [pathTo:init.sql]:/docker-entrypoint-initdb.d/init.sql  #Maps init scripts to run on startup, locationOfinitSscrits:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql #Connects the permanent vault, locationOfLocalVault:/var/lib/mysql
+      - [pathTo:init.sql]:/docker-entrypoint-initdb.d/init.sql  #Maps init scripts to run on startup
+      - [nameOfVault]:/var/lib/mysql #Connects the permanent vault, nameOfVault:/var/lib/mysql
 
 volumes:
-  db_data:
+  [nameOfVault]:
 
 

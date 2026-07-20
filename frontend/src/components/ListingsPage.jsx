@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { propertyService } from '../api/propertyService';
 import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
+import Pagination from './Pagination';
 import styles from '../css_modules/ListingsPage.module.css'; //import styles for the ListingsPage
 
 function ListingsPage(){
@@ -68,32 +69,14 @@ function ListingsPage(){
 	//get the page information
 	const {
 		totalItems = 0,
-		totalPages = 1,
 		currentPage = 1,
 		itemsPerPage = 24,
-		hasNextPage = false,
-		hasPrevPage = false
 	} = pagination || {};
 	
 	//get the number of items that are currently being displayed
 	const fromIndex = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
 	const toIndex = Math.min(currentPage * itemsPerPage, totalItems);
 	
-	//Handle navigation between pages
-	const handleNext = () => {
-		if(hasNextPage){
-			setPage(prev => prev + 1);
-			window.scrollTo({top: 0, behavior: 'smooth' })
-		}
-	};
-	
-	const handlePrev = () => {
-		if(hasPrevPage){
-			setPage(prev => prev - 1);
-			window.scrollTo({ top: 0, behavior: 'smooth' });
-		}
-	};
-
 	if (loading) return <div style={{ padding: '20px' }}>Loading real estate listings. . .</div>;
 	if (error) return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>;
 
@@ -120,27 +103,13 @@ function ListingsPage(){
 				</div>
 			)}
 
-			{/* Navigation controls */}
-			<div className={styles.paginationContainer}>
-				<button
-					onClick={handlePrev}
-					disabled={!hasPrevPage}
-					className={styles.navButton}
-				>
-					&larr; Previouse
-				</button>
-				<page className={styles.pageIndicator}>
-					Page {currentPage} or {totalPages}
-				</page>
-
-				<button
-					onClick={handleNext}
-					disabled={!hasNextPage}
-					className={styles.navButton}
-				>
-					Next &rarr;
-				</button>
-			</div>
+			{/* Navigation controls component*/}
+			<Pagination
+				pagination={pagination}
+				page={page}
+				setPage={setPage}
+			/>
+			
 		</div>
 	);
 }
