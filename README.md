@@ -185,7 +185,7 @@ http://localhost:<your port number, ussually 5000>/api/properties?city=orlando&b
 
 ---
 
-## Week 4 (7/3/2026)
+## Week 4 (7/6/2026)
 
 start the database as shown in week 1 by navigaing to the directory that contains the compose.yml file for the container and running:  
 `docker compose up -d`  
@@ -267,6 +267,9 @@ You should see:
 $${\color{green}\text{Test Files 2 passed}}$$  
 $${\color{green}\text{Tests 6 passed}}$$
 
+---
+
+## Week 7 (7/27/2026)
 
 
 
