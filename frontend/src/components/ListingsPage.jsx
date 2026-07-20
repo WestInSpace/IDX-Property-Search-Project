@@ -69,6 +69,7 @@ function ListingsPage(){
 	//get the page information
 	const {
 		totalItems = 0,
+		totalPages = 1,
 		currentPage = 1,
 		itemsPerPage = 24,
 	} = pagination || {};
@@ -103,13 +104,14 @@ function ListingsPage(){
 				</div>
 			)}
 
-			{/* Navigation controls component*/}
-			<Pagination
-				pagination={pagination}
-				page={page}
-				setPage={setPage}
-			/>
-			
+			{/* Navigation controls component, only shows when more than one page is present*/}
+			{totalPages > 1 && (
+				<Pagination
+					pagination={pagination}
+					page={page}
+					setPage={setPage}
+				/>
+			)}			
 		</div>
 	);
 }
