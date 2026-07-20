@@ -77,7 +77,7 @@ describe('Pagination Component', () => {
 			hasPrevPage: false,
 		};
 
-		render(
+		const {rerender} = render(
 			<Pagination pagination={paginationData} page={1} setPage={mockSetPage} />
 		);
 
@@ -95,7 +95,7 @@ describe('Pagination Component', () => {
 			hasPrevPage: true,
 		};
 
-		render(
+		rerender(
 			<Pagination pagination={paginationData} page={5} setPage={mockSetPage} />
 		);
 
@@ -127,6 +127,69 @@ describe('Pagination Component', () => {
 
 		//varify that the component is not visible
 		expect(container.firstChild).toBeNull();
+	});
+
+	//tests that the correct page navigation data is displayed on a first page, middle page, and last page
+	test('displays the correct page navigation buttons on first. middle, and last pages', () => {
+		const page1Pagination = {
+			totalPages: 5,
+			hasNextPage: true,
+			hasPrevPage: false,
+		};
+
+		//test the layout on page 1, should be: 1 2 . . . 5
+		const { rerender } = render(
+			<Pagination pagination={page1Pagination} page={1} setPage={vi.fn()} />
+		);
+		
+		//look for the items that should be displayed
+		expect(screen.getByRole('button', {name: '1' })).toBeInTheDocument();
+		expect(screen.getByRole('button', {name: '2' })).toBeInTheDocument();
+		expect(screen.getByText('...')).toBeInTheDocument();
+		expect(screen.getByRole('button', {name: '5' })).toBeInTheDocument();
+		//ensure that the items that should not be diaplyed are not displayed
+		expect(screen.queryByRole('button', {name: '3' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', {name: '4' })).not.toBeInTheDocument();
+
+		//test the layout on page 3, should be: 1 2 3 4 5, no ellipsis are needed
+		const middlePagePagination = {
+			totalPages: 5,
+			hasNextPage: true,
+			hasPrevPage: true,
+		};
+
+		rerender(
+			<Pagination pagination={middlePagePagination} page={3} setPage={vi.fn()} />
+		);
+		
+		//check that the correct buttons are rendered
+		expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '2' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '3' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '4' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '5' })).toBeInTheDocument();
+		//ensure that no ellipsis was rendered
+		expect(screen.queryByText('...')).not.toBeInTheDocument();
+
+		//test the layout on page 5, should be: 1 . . . 4 5
+		const lastPagePagination = {
+			totalPages: 5,
+			hasNextPage: false,
+			hasPrevPage: true,
+		};
+
+		rerender(
+			<Pagination pagination={lastPagePagination} page={5} setPage={vi.fn()} />
+		);
+		
+		//check that the correct buttons and ellipsis are rendered
+		expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
+		expect(screen.queryByText('...')).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '4' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '5' })).toBeInTheDocument();
+		//ensure that buttons that should not be rendered are not rendered
+		expect(screen.queryByRole('button', { name: '2' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: '3' })).not.toBeInTheDocument();
 	});
 });
 
