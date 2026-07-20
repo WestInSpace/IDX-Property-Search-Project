@@ -281,7 +281,7 @@ you should see intuitive page navigation controls at the bottom of the page.
 Another unit test file has been added.
 
 There are three unit tests for the Pagination component:  
-1. Tests that the previous page button is disabled on page 1 and the next page button is disabled on the last page.  
+1. Tests that the previous page button is disabled on page 1, the next page button is disabled on the last page and that both buttons are enabled on a middle page.  
 2. Tests that clicking on a page number brings you to that page, and updates the displayed page numbers.  
 3. Tests that the Pagination component is disapled when there is only one page.  
 
@@ -293,4 +293,8 @@ Next, you can run all the unit tests by running:
 You should see:  
 $${\color{green}\text{Test Files 3 passed}}$$  
 $${\color{green}\text{Tests 9 passed}}$$
+
+---
+
+## Week 8 (8/3/2026)
 

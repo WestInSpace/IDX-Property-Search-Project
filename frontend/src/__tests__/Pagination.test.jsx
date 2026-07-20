@@ -20,7 +20,10 @@ describe('Pagination Component', () => {
 			hasNextPage: true,
 			hasPrevPage: false,
 		};
-
+		
+		//test the first page
+		
+		//render page 1
 		const { rerender } = render(
 			<Pagination pagination={page1Pagination} page={1} setPage={vi.fn()} />
 		);
@@ -28,7 +31,25 @@ describe('Pagination Component', () => {
 		//on page 1 previouse should be disabled and next should be enabled
 		expect(screen.getByRole('button', {name: /previous/i })).toBeDisabled();
 		expect(screen.getByRole('button', {name: /next/i })).not.toBeDisabled();
+		
+		//test a middle page
+		//set up the mock pagination data for page 3
+		const middlePagePagination = {
+			totalPages: 5,
+			hasNextPage: true,
+			hasPrevPage: true,
+		};
+		
+		//rerender the page on page 3 with the new data
+		rerender(
+			<Pagination pagination={middlePagePagination} page={3} setPage={vi.fn()} />
+		);
 
+		//on a middle page both previous and next should be enabled
+		expect(screen.getByRole('button', {name: /Previous/i })).not.toBeDisabled();
+		expect(screen.getByRole('button', {name: /Next/i })).not.toBeDisabled();
+
+		//test the last page
 		//set up the mock pagination data for page 5 (last page in this case)
 		const lastPagePagination = {
 			totalPages: 5,
@@ -36,7 +57,7 @@ describe('Pagination Component', () => {
 			hasPrevPage: true,
 		};
 		
-		//rerender the page with the new data
+		//rerender the page on page 5 (the last page) with the new data
 		rerender(
 			<Pagination pagination={lastPagePagination} page={5} setPage={vi.fn()} />
 		);
