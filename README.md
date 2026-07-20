@@ -239,7 +239,7 @@ Added the ability to filter properties from the front end.
 Start the database container, backend server, and frontend server as shown in week 5
 
 visit this url:  
-http://localhost:3000/
+`http://localhost:3000/`
 
 You will now see a bar at the top. If you click the "-- Show Filters" button the filter options will be displayed  
 Type in the desired filters and click the "Apply" button, or click the "Clear" button to reset your filter choices.
@@ -271,5 +271,26 @@ $${\color{green}\text{Tests 6 passed}}$$
 
 ## Week 7 (7/27/2026)
 
+The page navigation that was at the bottom of the page was moved to its own component and clickable page number buttons with ellipsis where needed were added for eassier page navigation.
 
+Now, when you start the database, backend server, and frontend server then visit:  
+`http://localhost:3000/`
+
+you should see intuitive page navigation controls at the bottom of the page.
+
+Another unit test file has been added.
+
+There are three unit tests for the Pagination component:  
+1. Tests that the previous page button is disabled on page 1 and the next page button is disabled on the last page.  
+2. Tests that clicking on a page number brings you to that page, and updates the displayed page numbers.  
+3. Tests that the Pagination component is disapled when there is only one page.  
+
+To run these tests navigate to the folder: /frontend/ in your terminal and first install dependencies:  
+`npm install`  
+Next, you can run all the unit tests by running:  
+`npm test`
+
+You should see:  
+$${\color{green}\text{Test Files 3 passed}}$$  
+$${\color{green}\text{Tests 9 passed}}$$
 
