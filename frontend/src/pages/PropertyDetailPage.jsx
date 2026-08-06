@@ -1,6 +1,6 @@
 /* Property detail page to display details, description, openhouses, and location of a property */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import OpenHouseCard from '../components/OpenHouseCard';
 import PropertyImageGallery from '../components/PropertyImageGallery';
@@ -19,7 +19,6 @@ import {
   MapPin, 
   Heart, 
   Share2, 
-  Clock, 
   ChevronDown, 
   ChevronUp 
 } from 'lucide-react';
@@ -368,17 +367,10 @@ function PropertyDetailPage() {
 			
 			{/* Error Boundary for image gallery */}
 			<ErrorBoundary
-				onReset={() => setPage(1)}
 				fallback={
 					<div className={errStyles.errorContainer}>
 						<h3 className={errStyles.errorTitle}>Unable to render this section.</h3>
 						<p className={errStyles.errorMessage}>One of the returned property listings contained invalid data.</p>
-						<button 
-							onClick={() => setPage(1)}
-							className={errStyles.errorButton}
-						>
-							Reset Grid
-						</button>
 					</div>
 				}
 			>
@@ -399,7 +391,7 @@ function PropertyDetailPage() {
 				{openHouses.length > 0 ? (
 					<div className={styles.openHouseGrid}>
 						{openHouses.map((oh, index) => (
-							<OpenHouseCard key={oh.id} openHouse={oh} />
+							<OpenHouseCard key={index} openHouse={oh} />
 						))}
 					</div>
 				) : (
@@ -413,17 +405,10 @@ function PropertyDetailPage() {
 			
 			{/* Error Boundary for map */}
 			<ErrorBoundary
-				onReset={() => setPage(1)}
 				fallback={
 					<div className={errStyles.errorContainer}>
 						<h3 className={errStyles.errorTitle}>Unable to render this section.</h3>
 						<p className={errStyles.errorMessage}>One of the returned property listings contained invalid data.</p>
-						<button 
-							onClick={() => setPage(1)}
-							className={errStyles.errorButton}
-						>
-							Reset Grid
-						</button>
 					</div>
 				}
 			>

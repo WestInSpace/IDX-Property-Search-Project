@@ -1,34 +1,36 @@
 /* The componenet allowing the user to enter filters to search for properties */
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './css_modules/PropertyFilters.module.css'; //import styles for PropertyFilters
 
 function PropertyFilters({ onApplyFilters, onShowFavorites, activeFilters }){
 	//track the state of the toggle to display the filter menu
 	const [isOpen, setIsOpen] = useState(false);
 	
+	//Store previouse activeFilters prop to detect changes during render
+	const [prevActiveFilters, setPrevActiveFilters] = useState(activeFilters);
+
 	//store the filters that the user is typing
 	const [draftFilters, setDraftFilters] = useState({
-		city: '',
-		zipcode: '',
-		minPrice: '',
-		maxPrice: '',
-		beds: '',
-		baths: ''
+		city: activeFilters.city || '',
+		zipcode: activeFilters.zipcode || '',
+		minPrice: activeFilters.minPrice || '',
+		maxPrice: activeFilters.maxPrice || '',
+		beds: activeFilters.beds || '',
+		baths: activeFilters.baths || ''
 	});
 	
-	//Udate the draft when parrent value are updated to avoid sending a new api call on every char typed
-	useEffect(() => {
-		if(activeFilters){
-			setDraftFilters({
-				city: activeFilters.city || '',
-				zipcode: activeFilters.zipcode || '',
-		        minPrice: activeFilters.minPrice || '',
-        		maxPrice: activeFilters.maxPrice || '',
-		        beds: activeFilters.beds || '',
-        		baths: activeFilters.baths || ''
-			});
-		}
-	}, [activeFilters]);
+	// Adjust state during render when activeFilters changes
+    if (activeFilters !== prevActiveFilters) {
+        setPrevActiveFilters(activeFilters);
+        setDraftFilters({
+            city: activeFilters?.city || '',
+            zipcode: activeFilters?.zipcode || '',
+            minPrice: activeFilters?.minPrice || '',
+            maxPrice: activeFilters?.maxPrice || '',
+            beds: activeFilters?.beds || '',
+            baths: activeFilters?.baths || ''
+        });
+    }
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;

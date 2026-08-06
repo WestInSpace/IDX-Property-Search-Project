@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, Clock, Info } from 'lucide-react';
 import styles from './css_modules/OpenHouseCard.module.css';
 

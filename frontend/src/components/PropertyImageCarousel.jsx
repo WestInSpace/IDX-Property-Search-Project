@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styles from './css_modules/PropertyImageCarousel.module.css'
 
 function PropertyImageCarousel({ photos = [], address = 'Property' }){

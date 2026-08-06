@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, afterEach} from 'vitest';
 import { propertyService } from '../api/propertyService';
 
-global.fetch = vi.fn();
+vi.stubGlobal('fetch', vi.fn());
 
 describe('propertyService - API Client Module', () => {
 	afterEach(() => {
