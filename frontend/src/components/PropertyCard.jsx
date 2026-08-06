@@ -1,6 +1,5 @@
 //PropertyCard component, This is the object that will be used to display property cards in the grid inside the ListingsPage component
 
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropertyImageCarousel from './PropertyImageCarousel';
 import { useFavorites } from '../hooks/useFavorites';
@@ -32,10 +31,9 @@ function PropertyCard({ property, onFavoriteToggle }){
 		try{
 			photoArray = JSON.parse(property.L_Photos);
 		}catch (err){
-			console.error("Error parsing photos JSON")
+			console.error("Error parsing photos JSON: ", err);
 		}
 	}
-	const imgUrl = Array.isArray(photoArray) && photoArray.length > 0 ? photoArray[0] : '';
 
 	//Helper function to format the price
 	const formatPrice = (val) => {

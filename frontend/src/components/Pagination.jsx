@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './css_modules/Pagination.module.css'
 
 function Pagination({ pagination, page, setPage }) {

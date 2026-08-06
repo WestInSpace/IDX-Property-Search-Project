@@ -36,13 +36,10 @@ function useFavorites() {
 		const currentIds = getSavedIds();
 		const idSet = new Set(currentIds);
 
-		let isNowSaved = false;
 		if(idSet.has(idStr)){
 			idSet.delete(idStr);
-			isNowSaved = false;
 		}else{
 			idSet.add(idStr);
-			isNowSaved = true;
 		}
 
 		const updatedArray = Array.from(idSet);
@@ -53,8 +50,6 @@ function useFavorites() {
 
 		//notify other components using this hook
 		window.dispatchEvent(new Event('favoritesUpdated'));
-
-		return isNowSaved;
 
 	}, []);
 

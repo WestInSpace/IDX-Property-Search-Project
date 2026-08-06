@@ -1,6 +1,6 @@
 //This is the ListingsPage component. This will be used to display the grid that holds PropertyCard components
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { propertyService } from '../api/propertyService';
 import PropertyCard from '../components/PropertyCard';
 import PropertyFilters from '../components/PropertyFilters';
@@ -99,7 +99,7 @@ function ListingsPage(){
 		}
 	};
 
-	const handleShowFavorites = (newFilters) => {
+	const handleShowFavorites = () => {
 		setShowOnlyFavorites(prev => !prev);
 		setPage(1);
 	};

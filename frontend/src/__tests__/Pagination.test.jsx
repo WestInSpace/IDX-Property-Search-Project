@@ -1,8 +1,7 @@
 // @vitest-environment jsdom
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import Pagination from '../components/ListingsPage/Pagination';
+import Pagination from '../components/Pagination';
 import '@testing-library/jest-dom';
 
 describe('Pagination Component', () => {
@@ -192,8 +191,3 @@ describe('Pagination Component', () => {
 		expect(screen.queryByRole('button', { name: '3' })).not.toBeInTheDocument();
 	});
 });
-
-
-
-
-
