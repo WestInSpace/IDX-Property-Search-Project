@@ -1,1 +1,18 @@
+# Requested files not to include: source data files, csv files, and Excel files.
+*.csv
+*.xlsx
+#*.sql
+sql-files/
 
+#credentials
+.env
+compose.yml
+
+#ignore the code for external libraries
+node_modules/
+
+#ignore my checkpoint folder
+checkpoint/
+
+#ignore my logs
+logs/
