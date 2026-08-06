@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
-import PropertyFilters from '../components/ListingsPage/PropertyFilters';
+import PropertyFilters from '../components/PropertyFilters';
 import '@testing-library/jest-dom';
 
 describe('PropertyFilters Component', () => {
@@ -60,8 +60,3 @@ describe('PropertyFilters Component', () => {
 
 	});
 });
-
-
-
-
-
