@@ -1,0 +1,91 @@
+.container{
+	padding: 40px 20px;
+	margin: 20px auto;
+	max-width: 600px;
+	text-align: center;
+	border: 1px solid #E0E0E0;
+	border-radius: 8px;
+	background-color: #FFFFFF;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.title{
+	color: #D32F2F;
+	margin-top: 0;
+}
+
+.message{
+	color: #D32F2F;
+	margin-bottom: 20px;
+}
+
+.buttonGroup{
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+
+.primaryButton{
+	padding: 10px 20px;
+	background-color: #007BFF;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: bold;
+	transition: background-color 0.2s ease;
+}
+
+.primaryButton:hover{
+	background-color: #0056B3;
+}
+
+.secondaryButton{
+	padding: 10px 20px;
+	background-color: #6C757D;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.secondarButton:hover{
+	background-color: #5A6268;
+}
+
+.errorContainer{
+	padding: 30px;
+	text-align: center;
+	background-color: #FFF3F3;
+	border: 1px solid #FFCDD2;
+	border-radius: 8px;
+	margin: 20px 0;
+}
+
+.errorTitle{
+	color: #D32F2F;
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.errorMessage{
+	color: #555555;
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.errorButton{
+	padding: 8px 16px;
+	background-color: #007BFF;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background-color 0.2s ease;
+}
+
+.errorButton:hover{
+	background-color: #0056B3;
+}
