@@ -27,7 +27,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 	//Test the succssess of /api/properties	
 	it('should return default paginated properties when no filters are provided', async () =>{
 		const mockCount = [{ total: 30 }];
-		const mockProperties = Array(24).fill({ id:1, L_City: 'Orlando' });
+		const mockProperties = Array(24).fill({ id: 1, L_City: 'Orlando' });
 
 		pool.query.mockResolvedValueOnce([mockCount]).mockResolvedValueOnce([mockProperties]);
 
@@ -61,7 +61,123 @@ describe('GET /api/properites (search and Filtering)', () => {
 			hasPrevPage: true,
 		});
 	});
+
 	//Test each filter type of /api/properties
+	//Test filter by city
+	it('Should filter by city, trimmed and lowercased', async () => {
+		const mockProperties = [{id: 1, L_City: 'orlando'}, {id: 2, L_City: 'tampa'}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ city: ' Tampa ' });
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE TRIM(L_City) = ?');
+		expect(countCall[1]).toEqual(['tampa']);
+
+	});
+
+	//Test filter by zipcode
+	it('Should filter by zipcode', async () => {
+		const mockProperties = [{id: 1, L_zip: 32801}, {id: 2, L_zip: 32765}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ zipcode: '32801' });
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_zip = ?');
+		expect(countCall[1]).toEqual([32801]);
+
+	});
+	
+	//Test filter by price range
+	it('Should filter by price range using BETWEEN when both minPrice and maxPrice are present', async () => {
+		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ minPrice: '400000', maxPrice: '600000' });
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_SystemPrice BETWEEN ? AND ?');
+		expect(countCall[1]).toEqual([400000, 600000]);
+	});
+
+	//Test filter by minPrice only
+	it('Should filter by minPrice only', async () => {
+		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 2 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ minPrice: '400000'});
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_SystemPrice >= ?');
+		expect(countCall[1]).toEqual([400000]);
+	});
+
+	//Test filter by maxPrice only
+	it('Should filter by maxPrice only', async () => {
+		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 2 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ maxPrice: '600000'});
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_SystemPrice <= ?');
+		expect(countCall[1]).toEqual([600000]);
+	});
+
+	//Test filter by beds and baths
+	it('Should filter by beds and baths', async () => {
+		const mockProperties = [{id: 1, L_Keyword2: 2, LM_Dec_3: 1}, {id: 2, L_Keyword2: 3, LM_Dec_3: 2}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ beds: '3', baths: '2'});
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_Keyword2 >= ? AND LM_Dec_3 >= ?');
+		expect(countCall[1]).toEqual([3, 2]);
+	});
+
+	//Test filter should filter by beds
+	it('Should filter by beds only', async () => {
+		const mockProperties = [{id: 1, L_Keyword2: 2}, {id: 2, L_Keyword2: 3}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ beds: '3'});
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE L_Keyword2 >= ?');
+		expect(countCall[1]).toEqual([3]);
+	});
+
+	//Test filter by baths
+	it('Should filter by baths only', async () => {
+		const mockProperties = [{id: 1, LM_Dec_3: 1}, {id: 2, LM_Dec_3: 2}];
+
+		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).get('/api/properties').query({ baths: '2'});
+
+		expect(response.status).toBe(200);
+		const countCall = pool.query.mock.calls[0];
+		expect(countCall[0]).toContain('WHERE LM_Dec_3 >= ?');
+		expect(countCall[1]).toEqual([2]);
+	});
+
+
 
 	//Test invalid filter inputs of /api/properties
 
