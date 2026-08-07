@@ -43,6 +43,19 @@ describe('POST /api/properties/batch', () => {
 	});
 
 	//Test if ids array is missing or empty
+	it('should return empty results if ids array is missing or empty', async () => {
+		const responseEmpty = await request(app).post('/api/properties/batch').send({ ids: [] });
+
+		const responseMissing = await request(app).post('/api/properties/batch').send({});
+
+		expect(responseEmpty.status).toBe(200);
+		expect(responseEmpty.body).toEqual({ property: [], totalItems: 0 });
+
+		expect(responseMissing.status).toBe(200);
+		expect(responseMissing.body).toEqual({ property: [], totalItems: 0 });
+
+		expect(pool.query).not.toHaveBeenCalled();
+	});
 
 	//Test all invalid ids
 
