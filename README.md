@@ -229,9 +229,166 @@ Then try reinstalling dependencies by running:
 Then try starting the application again by runnging:
 `make start`
 
-Now when you vist the frontend everythign should be working.  
+Now when you vist the frontend everything should be working.  
 If it is still not view the logs and look for an error and please report a bug on this repo so that I can fix it as soon as possible. The more detail you provide in the bug report the better.
 
+---
+## API endpoint reference
+
+**Base URL:** `http://localhost:5000/api`
+
+### 1. Get All Properties (Search and Filter)
+
+Retrives a paginated list of properties with support for filtering by location, price, bedrooms, and bathrooms.
+
+* **URL:** `/properties`  
+* **Method:** `GET`  
+* **Query Parameters:**
+
+| Parameter |	Type   | Required | Description										|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `limit` 	| `number` | Optional | Number of items per page (default: `20`)		|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `offset` 	| `number` | Optional | Starting offset for pagination (default: `0`)	|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `city` 	| `string` | Optional | Filter by city name (case-insensitive)			|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `zipcode` | `number` | Optional | Filter by 5-digit postal code					|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `minPrice`| `number` | Optional | Minimum system price (`>=`)						|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `maxPrice`| `number` | Optional | Maximum system price (`<=`)						|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `beds` 	| `number` | Optional | Minimum bedroom count (`>=`)					|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `baths` 	| `number` | Optional | Minimum bathroom count (`>=`)					|  
+|-----------|----------|----------|-------------------------------------------------|
+
+* **Response (200 OK):**  
+```json
+{
+  "pagination": {
+    "totalItems": 25,
+    "totalPages": 2,
+    "currentPage": 1,
+    "itemsPerPage": 20,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  },
+  "property": [
+    {
+      "id": 1,
+      "L_ListingID": "MLS_1001",
+      "L_City": "Orlando",
+      "L_zip": 32801,
+      "L_SystemPrice": 350000,
+      "L_Keyword2": 3,
+      "LM_Dec_3": 2
+    }
+  ]
+}
+```
+
+* **Response (400 Bad Request):**  
+```json
+{
+  "error": "Bad Request",
+  "messages": ["zipcode not a valid number"]
+}
+```
+
+**Get Property Details**  
+Retrives a row from the database of a single property by id and fallsback to L_ListingID
+
+* **URL:** `/properties/:id`  
+* **Method:** `GET`  
+* **Query Parameters:**
+| Parameter |	  Type		| Required |              Description									 |  
+|-----------|---------------|----------|-------------------------------------------------------------|  
+| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |  
+|-----------|---------------|----------|-------------------------------------------------------------|  
+
+* **Response (200 OK):**  
+```json
+{
+  "id": 101,
+  "L_ListingID": "MLS_101",
+  "L_City": "Orlando",
+  "L_zip": 32801,
+  "L_SystemPrice": 420000,
+  "L_Keyword2": 4,
+  "LM_Dec_3": 3
+}
+```
+
+* **Response (404 Not Found):**  
+```json
+{
+  "message": "Property not found, check that the id is valid"
+}
+```
+**Get Property Open houses**  
+Retrives all open houses scheduled for a specific property
+
+* **URL:** `/properties/:id/openhouses`  
+* **Method:** `GET`  
+* **Query Parameters:**
+
+| Parameter |	  Type		| Required |              Description									 |  
+|-----------|---------------|----------|-------------------------------------------------------------|  
+| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |  
+|-----------|---------------|----------|-------------------------------------------------------------|
+
+* **Response (200 OK):**  
+```json
+[
+  {
+    "id": 1,
+    "L_ListingID": "MLS_101",
+    "OpenHouseDate": "2026-09-10T14:00:00.000Z",
+    "OpenHouseStartTime": "14:00",
+    "OpenHouseEndTime": "17:00"
+  }
+]
+```
+
+* **Response (404 Not Found):**  
+```json
+{
+  "message": "Property not found"
+}
+```
+
+**Get properties batch**  
+Retrives property details for multiple property IDs in a single request
+
+* **URL:** `/properties/batch`  
+* **Method:** `POST`  
+* **Headers:** `Content-Type: application/json`
+* **Request Body:**
+
+| Field	    |	  Type		| Required |              Description				 |  
+|-----------|---------------|----------|-----------------------------------------|  
+| `ids`	 	| array[number] |    Yes   | Array of property IDs to querry		 |  
+|-----------|---------------|----------|-----------------------------------------|
+
+* **Example Request Body:**  
+```json
+{
+  "ids": [10, 20, 30]
+}
+```
+
+* **Response (200 OK):**  
+```json
+{
+  "property": [
+    { "id": 10, "L_ListingID": "L10" },
+    { "id": 20, "L_ListingID": "L20" }
+  ],
+  "totalItems": 2
+}
+```
 ---
 ## Complete list of Makefile capabilities
 
