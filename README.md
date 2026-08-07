@@ -246,23 +246,14 @@ Retrives a paginated list of properties with support for filtering by location, 
 * **Query Parameters:**
 
 | Parameter |	Type   | Required | Description										|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `limit` 	| `number` | Optional | Number of items per page (default: `20`)		|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `offset` 	| `number` | Optional | Starting offset for pagination (default: `0`)	|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `city` 	| `string` | Optional | Filter by city name (case-insensitive)			|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `zipcode` | `number` | Optional | Filter by 5-digit postal code					|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `minPrice`| `number` | Optional | Minimum system price (`>=`)						|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `maxPrice`| `number` | Optional | Maximum system price (`<=`)						|  
-|-----------|----------|----------|-------------------------------------------------|  
 | `beds` 	| `number` | Optional | Minimum bedroom count (`>=`)					|  
-|-----------|----------|----------|-------------------------------------------------|  
-| `baths` 	| `number` | Optional | Minimum bathroom count (`>=`)					|  
-|-----------|----------|----------|-------------------------------------------------|
+| `baths` 	| `number` | Optional | Minimum bathroom count (`>=`)					|
 
 * **Response (200 OK):**  
 ```json
@@ -304,9 +295,7 @@ Retrives a row from the database of a single property by id and fallsback to L_L
 * **Method:** `GET`  
 * **Query Parameters:**
 | Parameter |	  Type		| Required |              Description									 |  
-|-----------|---------------|----------|-------------------------------------------------------------|  
-| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |  
-|-----------|---------------|----------|-------------------------------------------------------------|  
+| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |
 
 * **Response (200 OK):**  
 ```json
@@ -335,9 +324,7 @@ Retrives all open houses scheduled for a specific property
 * **Query Parameters:**
 
 | Parameter |	  Type		| Required |              Description									 |  
-|-----------|---------------|----------|-------------------------------------------------------------|  
 | `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |  
-|-----------|---------------|----------|-------------------------------------------------------------|
 
 * **Response (200 OK):**  
 ```json
@@ -368,9 +355,7 @@ Retrives property details for multiple property IDs in a single request
 * **Request Body:**
 
 | Field	    |	  Type		| Required |              Description				 |  
-|-----------|---------------|----------|-----------------------------------------|  
-| `ids`	 	| array[number] |    Yes   | Array of property IDs to querry		 |  
-|-----------|---------------|----------|-----------------------------------------|
+| `ids`	 	| array[number] |    Yes   | Array of property IDs to querry		 |
 
 * **Example Request Body:**  
 ```json
@@ -397,9 +382,7 @@ Retrives property details for multiple property IDs in a single request
 ###table Names: rets_property, rets_openhouse
 
 * **rets_property important columns**  
-+-------------------+----------------+------+-----+---------+
 | Field             | Type           | Null | Key | Default |
-+-------------------+----------------+------+-----+---------+
 | id                | int            | NO   | PRI | NULL    |
 | L_ListingID       | varchar(255)   | YES  | MUL | NULL    |
 | L_Address         | varchar(100)   | YES  |     | NULL    |
@@ -415,13 +398,10 @@ Retrives property details for multiple property IDs in a single request
 | L_Remarks         | mediumtext     | YES  |     | NULL    |
 | L_Photos          | longtext       | YES  |     | NULL    |
 | PhotoCount        | int            | YES  |     | NULL    |
-+-------------------+----------------+------+-----+---------+
 
 
 * **rets_openhouse important columns**  
-+------------------+--------------+------+-----+---------+
 | Field            | Type         | Null | Key | Default |
-+------------------+--------------+------+-----+---------+
 | id               | int          | NO   | PRI | NULL    |
 | L_ListingID      | varchar(255) | NO   | MUL | NULL    |
 | OpenHouseDate    | date         | NO   | MUL | NULL    |
@@ -430,7 +410,6 @@ Retrives property details for multiple property IDs in a single request
 | OH_StartDate     | date         | NO   |     | NULL    |
 | OH_EndDate       | date         | NO   |     | NULL    |
 | all_data         | longtext     | NO   |     | NULL    |
-+------------------+--------------+------+-----+---------+
 
 * **Other Important table information**  
 - L_ListingID is the for foreign key.  
