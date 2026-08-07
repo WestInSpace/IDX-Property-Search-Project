@@ -2,7 +2,7 @@
 BACKEND_PORT  := 5000
 FRONTEND_PORT := 3000
 
-.PHONY: install test start stop clearLogs
+.PHONY: install testFront testBack testAll start stop clearLogs
 
 #Install project dependencies
 install:
@@ -11,9 +11,22 @@ install:
 	@echo "Installing frontend dependancies . . ."
 	@cd ./fronend && npm install
 
-#run the unit tests
-test:
-	cd ./frontend && npm run test
+#run the unit tests for the frontend
+testFront:
+	@echo "Running frontend unit tests . . ."
+	@cd ./frontend && npm run test -- --run
+
+#run the unit tests for the backend
+testBack:
+	@echo "Running backend unit tests . . ."
+	@cd ./backend && npm run test
+
+#run unit tests for both backend and frontend
+testAll:
+	@echo "Running backend unit tests . . ."
+	@cd ./backend && npm run test
+	@echo "Running frontend unit tests . . ."
+	@cd ./frontend && npm run test -- --run
 
 #Start the database container, backend server, and frontend server.
 start:
