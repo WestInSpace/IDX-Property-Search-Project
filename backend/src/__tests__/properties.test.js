@@ -46,7 +46,21 @@ describe('GET /api/properites (search and Filtering)', () => {
 	});
 
 	//Test the pagination results of /api/properties
+	it('Should handle custom limit and offset query params', async () => {
+		pool.query.mockResolvedValueOnce([[{ total: 50 }]]).mockResolvedValueOnce([[{id: 21}, {id: 22}]]);
 
+		const response = await request(app).get('/api/properties').query({limit: '10', offset: '20'});
+
+		expect(response.status).toBe(200);
+		expect(response.body.pagination).toEqual({
+			totalItems: 50,
+			totalPages: 5,
+			currentPage: 3,
+			itemsPerPage: 10,
+			hasNextPage: true,
+			hasPrevPage: true,
+		});
+	});
 	//Test each filter type of /api/properties
 
 	//Test invalid filter inputs of /api/properties
