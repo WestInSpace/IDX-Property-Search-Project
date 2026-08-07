@@ -47,6 +47,36 @@ describe('GET /api/properties/:id/openhouses', () => {
 	});
 
 	//Test property with no openhouses
+	it('should return empty array if property has no open houses', async () => {
+		const mockProperty = [{ L_ListingID: '101'}];
 
+		pool.query.mockResolvedValueOnce([mockProperty]).mockResolvedValueOnce([[]]);
+
+		const response = await request(app).get('/api/properties/101/openhouses');
+
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual([]);
+	});
+
+	//Test openHouses if property does not exist
+
+	//Test database error
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
