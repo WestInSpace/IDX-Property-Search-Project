@@ -65,7 +65,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 	//Test each filter type of /api/properties
 	//Test filter by city
 	it('Should filter by city, trimmed and lowercased', async () => {
-		const mockProperties = [{id: 1, L_City: 'orlando'}, {id: 2, L_City: 'tampa'}];
+		const mockProperties = [{id: 2, L_City: 'tampa'}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -80,7 +80,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter by zipcode
 	it('Should filter by zipcode', async () => {
-		const mockProperties = [{id: 1, L_zip: 32801}, {id: 2, L_zip: 32765}];
+		const mockProperties = [{id: 1, L_zip: 32801}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -95,7 +95,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 	
 	//Test filter by price range
 	it('Should filter by price range using BETWEEN when both minPrice and maxPrice are present', async () => {
-		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+		const mockProperties = [{id: 2, L_SystemPrice: 500000}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -109,7 +109,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter by minPrice only
 	it('Should filter by minPrice only', async () => {
-		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+		const mockProperties = [{id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 2 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -123,7 +123,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter by maxPrice only
 	it('Should filter by maxPrice only', async () => {
-		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}, {id: 3, L_SystemPrice: 1000000}];
+		const mockProperties = [{id: 1, L_SystemPrice: 300000}, {id: 2, L_SystemPrice: 500000}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 2 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -137,7 +137,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter by beds and baths
 	it('Should filter by beds and baths', async () => {
-		const mockProperties = [{id: 1, L_Keyword2: 2, LM_Dec_3: 1}, {id: 2, L_Keyword2: 3, LM_Dec_3: 2}];
+		const mockProperties = [{id: 1, L_Keyword2: 3, LM_Dec_3: 2}, {id: 2, L_Keyword2: 4, LM_Dec_3: 2}, {id: 3, L_Keyword2: 3, LM_Dec_3: 3}, {id: 4, L_Keyword2: 4, LM_Dec_3: 3}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -151,7 +151,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter should filter by beds
 	it('Should filter by beds only', async () => {
-		const mockProperties = [{id: 1, L_Keyword2: 2}, {id: 2, L_Keyword2: 3}];
+		const mockProperties = [{id: 1, L_Keyword2: 3}, {id: 2, L_Keyword2: 4}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
@@ -165,7 +165,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test filter by baths
 	it('Should filter by baths only', async () => {
-		const mockProperties = [{id: 1, LM_Dec_3: 1}, {id: 2, LM_Dec_3: 2}];
+		const mockProperties = [{id: 1, LM_Dec_3: 2}, {id: 2, LM_Dec_3: 3}];
 
 		pool.query.mockResolvedValueOnce([[{ total: 1 }]]).mockResolvedValueOnce([mockProperties]);
 
