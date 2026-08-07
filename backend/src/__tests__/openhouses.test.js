@@ -59,6 +59,15 @@ describe('GET /api/properties/:id/openhouses', () => {
 	});
 
 	//Test openHouses if property does not exist
+	it('should return 404 if property does not exist', async () => {
+		pool.query.mockResolvedValueOnce([[]]);
+
+		const response = await request(app).get('/api/properties/101/openhouses');
+
+		expect(response.status).toBe(404);
+		expect(response.body).toEqual({ message: 'Property not found' });
+		expect(pool.query).toHaveBeenCalledTimes(1);
+	});
 
 	//Test database error
 

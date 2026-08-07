@@ -179,7 +179,6 @@ router.get('/:id/openhouses', async (req, res) => {
         
         //make sure the property exists
         if(property.length == 0){
-            console.log("The property does not exist");
             return res.status(404).json({ message: 'Property not found' });
         }
         
