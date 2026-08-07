@@ -16,6 +16,30 @@ Filter properties by your chosen filters to see only properties that you're look
 Click on a property and view details about it including: property description, an image gallery, upcoming openhouses, and it's location on Google Maps.
 As well as get directions to the property from your location with the press of a button.
 
+![Alt Text](./images/ProjectScreenshot.png)
+
+---
+## Tech stack
+
+### Frontend
+- **Framework:** React v19.2.7
+- **State/Routing:** React-dom v19.2.7, React-Router-dom v7.18.2
+- **Icons:** lucide-react v1.28.0
+
+### Backend
+- **Runtime:** Node.js v24.17.0
+- **Framework:** Express v5.2.1
+- **Database Driver:** mysql2 v3.22.5
+
+### Database & Infastructure
+- **Database:** MYSQL 8.0
+- **Containerization:** Docker v29.6.0, Docker Compose v5.1.4
+
+### Testing & Development
+- **Test Runners:** vitest v4.1.10, Jest v30.4.2
+- **HTTP Testing:** Supertest v7.2.2
+- **Code Quality:** ESLint v10.6.0
+
 ---
 
 ## Set up of local Database
@@ -216,12 +240,14 @@ I have created a Makefile for the project, this will allow the user / programmer
 Here's how to use it:  
 1. Navigate to the root directory of the project, where the Makefile is located.  
 2. Run the command corrosponding to the action you wish to take:  
-	a. `make install` -> Install or update all needed project dependanies  
-	b. `make test` -> Run the unit tests for the project  
-	c. `make start` -> Start the database continer, backend server, and frontend server as well as redirect output to log files  
-	d. `make stop` -> stop the frontend server, backend server, and the database container  
-	e. `make clearLogs` -> Delete the contents of all the local log files  
-	f. `make deleteLogs` -> Delete all the local log files
+	a. `make install` 	-> Install or update all needed project dependanies  
+	b. `make testFront` -> Run the unit tests for the frontend of the project  
+	c. `make testBack`	-> Run the unit tests for the backend of the project
+	d. `make testAll`	-> Run all the unit tests for the project
+	e. `make start` 	-> Start the database continer, backend server, and frontend server as well as redirect output to log files  
+	f. `make stop`		-> stop the frontend server, backend server, and the database container  
+	g. `make clearLogs`	-> Delete the contents of all the local log files  
+	h. `make deleteLogs`-> Delete all the local log files
 
 I hope to continue to add to this Makefile to make it even more powerful and give it the capability to do things such as start the project for the first time and even populate the database based on sql files that the user / programmer will put in a predefined directory. The goal would be to make databse set up more simple.
 
