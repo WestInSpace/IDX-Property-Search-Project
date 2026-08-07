@@ -177,9 +177,22 @@ describe('GET /api/properites (search and Filtering)', () => {
 		expect(countCall[1]).toEqual([2]);
 	});
 
-
-
 	//Test invalid filter inputs of /api/properties
+	it('Should return 400 Bad Request with validation messages for invalid inputs', async () => {
+		const response = await request(app).get('/api/properties').query({zipcode: 'invalid', minPrice: '-100', beds: 'nonNumber', baths: 'nonNumber'});
+
+		expect(response.status).toBe(400);
+		expect(response.body).toEqual({
+			error: 'Bad Request',
+			messages: [
+				'zipcode not a valid number.',
+				'minPrice not a valid number.',
+				'beds not a valid number.',
+				'baths not a valid number.',
+			],
+		});
+		expect(pool.query).not.toHaveBeenCalled();
+	});
 
 });
 

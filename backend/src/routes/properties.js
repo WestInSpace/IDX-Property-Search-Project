@@ -29,7 +29,7 @@ router.get('/', async(req, res) => {
         if(zipcode){
             const parsed = parseInt(zipcode)
             if(isNaN(parsed) || parsed < 0){
-                inputErrors.push("zipcode not a valid number");
+                inputErrors.push("zipcode not a valid number.");
             }else{
                 conditions.push('L_zip = ?');
                 queryVals.push(parsed);
