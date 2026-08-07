@@ -70,6 +70,15 @@ describe('GET /api/properties/:id/openhouses', () => {
 	});
 
 	//Test database error
+	it('should return 500 when database fails', async () => {
+		pool.query.mockRejectedValueOnce(new Error('Database error'));
+
+		const response = await request(app).get('/api/properties/101/openhouses');
+
+		expect(response.status).toBe(500);
+		expect(response.body).toEqual({ error: 'Database error' });
+	});
+
 
 });
 
