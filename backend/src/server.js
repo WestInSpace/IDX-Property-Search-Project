@@ -20,11 +20,14 @@ app.use(express.json()); // Allows the API to parse incoming JSON request bodies
 
 //log requests to the console
 app.use((req, res, next) => {
+	
+	const now = new Date();
+	const dateAndTime = now.toLocaleString();
 
     const startTime = Date.now();
     res.on('finish', () => {
         const duration = Date.now() - startTime;
-        console.log(`${startTime}: [${req.method}] ${req.originalUrl} - status: ${res.statusCode} (${duration}ms)`);
+        console.log(`${now.toLocaleString()}: [${req.method}] ${req.originalUrl} - status: ${res.statusCode} (${duration}ms)`);
     });
     next();
 });

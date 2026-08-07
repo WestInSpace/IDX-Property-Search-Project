@@ -10,7 +10,7 @@ router.get('/', async(req, res) => {
         const {city, zipcode, minPrice, maxPrice, beds, baths} = req.query;
         
         //Parse and sanitize limit and offset query parameters
-        const limit = parseInt(req.query.limit, 10) || 20;
+        const limit = parseInt(req.query.limit, 10) || 24;
         const offset = parseInt(req.query.offset, 10) || 0;
         //Varify / sanitize the data
         const sanLimit = limit < 1 ? 1 : limit;
