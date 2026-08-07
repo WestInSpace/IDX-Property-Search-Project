@@ -58,6 +58,14 @@ describe('POST /api/properties/batch', () => {
 	});
 
 	//Test all invalid ids
+	it('should return empty results if all provided ids are invalid', async () => {
+		const response = await request(app).post('/api/properties/batch').send({ ids: ['nonNum', -5]})
+
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual({ property: [], totalItems: 0 });
+		expect(pool.query).not.toHaveBeenCalled();
+
+	});
 
 	//Test Some ids invalid
 

@@ -145,7 +145,7 @@ router.post('/batch', async (req, res) => {
 		}
 		
 		// Sanitize IDs to positive integers
-		const cleanIds = ids.map(id => parseInt(id, 10)).filter(id => !isNaN(id) && id > 0);
+		const cleanIds = ids.map(id => parseInt(id, 10)).filter(id => !isNaN(id) && id >= 0);
 		
 		if(cleanIds.length === 0){
 			return res.json({ property: [], totalItems: 0 });
