@@ -295,10 +295,9 @@ Retrives a row from the database of a single property by id and fallsback to L_L
 * **URL:** `/properties/:id`  
 * **Method:** `GET`  
 * **Query Parameters:**
-| Parameter |	  Type		| Required |              Description									 |  
-|-----------|---------------|----------|-------------------------------------------------------------|  
-| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |
-
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | string/number | Yes | rets_property primary key, or fallback to L_ListingID |
 * **Response (200 OK):**  
 ```json
 {
@@ -325,9 +324,9 @@ Retrives all open houses scheduled for a specific property
 * **Method:** `GET`  
 * **Query Parameters:**
 
-| Parameter |	  Type		| Required |              Description									 |
+| Parameter |	  Type		| Required |              Description									 |  
 |-----------|---------------|----------|-------------------------------------------------------------|  
-| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |  
+| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |
 
 * **Response (200 OK):**  
 ```json
@@ -386,36 +385,36 @@ Retrives property details for multiple property IDs in a single request
 ###table Names: rets_property, rets_openhouse
 
 * **rets_property important columns**  
-| Field             | Type           | Null | Key | Default |  
-|-------------------|----------------|------|-----|---------|  
-| id                | int            | NO   | PRI | NULL    |  
-| L_ListingID       | varchar(255)   | YES  | MUL | NULL    |  
-| L_Address         | varchar(100)   | YES  |     | NULL    |  
-| L_Zip             | varchar(20)    | YES  | MUL | NULL    |  
-| L_AddressStreet   | varchar(50)    | YES  |     | NULL    |  
-| L_City            | varchar(50)    | YES  | MUL | NULL    |  
-| L_State           | varchar(50)    | YES  |     | NULL    |  
-| L_Keyword2        | int            | YES  | MUL | NULL    |  
-| LM_Dec_3          | decimal(4,1)   | YES  |     | NULL    |  
-| L_SystemPrice     | int            | YES  | MUL | NULL    |  
-| LMD_MP_Latitude   | decimal(18,15) | YES  |     | NULL    |  
-| LMD_MP_Longitude  | decimal(19,15) | YES  |     | NULL    |  
-| L_Remarks         | mediumtext     | YES  |     | NULL    |  
-| L_Photos          | longtext       | YES  |     | NULL    |  
-| PhotoCount        | int            | YES  |     | NULL    |
+| Field | Type | Null | Key | Default |
+| --- | --- | --- | --- | --- |
+| id | int | NO | PRI | NULL |
+| L_ListingID | varchar(255) | YES | MUL | NULL |
+| L_Address | varchar(100) | YES |   | NULL |
+| L_Zip | varchar(20) | YES | MUL | NULL |
+| L_AddressStreet | varchar(50) | YES |   | NULL |
+| L_City | varchar(50) | YES | MUL | NULL |
+| L_State | varchar(50) | YES |   | NULL |
+| L_Keyword2 | int | YES | MUL | NULL |
+| LM_Dec_3 | decimal(4,1) | YES |   | NULL |
+| L_SystemPrice | int | YES | MUL | NULL |
+| LMD_MP_Latitude | decimal(18,15) | YES |   | NULL |
+| LMD_MP_Longitude | decimal(19,15) | YES |   | NULL |
+| L_Remarks | mediumtext | YES |   | NULL |
+| L_Photos | longtext | YES |   | NULL |
+| PhotoCount | int | YES |   | NULL |
 
 
 * **rets_openhouse important columns**  
-| Field            | Type         | Null | Key | Default |  
-|------------------|--------------|------|-----|---------|
-| id               | int          | NO   | PRI | NULL    |  
-| L_ListingID      | varchar(255) | NO   | MUL | NULL    |  
-| OpenHouseDate    | date         | NO   | MUL | NULL    |  
-| OH_StartTime     | time         | NO   |     | NULL    |  
-| OH_EndTime       | time         | NO   |     | NULL    |  
-| OH_StartDate     | date         | NO   |     | NULL    |  
-| OH_EndDate       | date         | NO   |     | NULL    |  
-| all_data         | longtext     | NO   |     | NULL    |
+| Field | Type | Null | Key | Default |
+| --- | --- | --- | --- | --- |
+| id | int | NO | PRI | NULL |
+| L_ListingID | varchar(255) | NO | MUL | NULL |
+| OpenHouseDate | date | NO | MUL | NULL |
+| OH_StartTime | time | NO |   | NULL |
+| OH_EndTime | time | NO |   | NULL |
+| OH_StartDate | date | NO |   | NULL |
+| OH_EndDate | date | NO |   | NULL |
+| all_data | longtext | NO |   | NULL |
 
 * **Other Important table information**  
 - L_ListingID is the for foreign key.  
