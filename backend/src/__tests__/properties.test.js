@@ -194,5 +194,15 @@ describe('GET /api/properites (search and Filtering)', () => {
 		expect(pool.query).not.toHaveBeenCalled();
 	});
 
+	//Test for database error handling of /api/properties
+	it('should return 500 when database fails', async () => {
+		pool.query.mockRejectedValueOnce(new Error('Databse error'));
+
+		const response = await request(app).get('/api/properties');
+
+		expect(response.status).toBe(500);
+		expect(response.body).toEqual({ error: 'Internal Server Error' })
+	});
+
 });
 
