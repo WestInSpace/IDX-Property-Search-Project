@@ -79,7 +79,6 @@ describe('GET /api/properties/:id/openhouses', () => {
 		expect(response.body).toEqual({ error: 'Database error' });
 	});
 
-
 });
 
 
