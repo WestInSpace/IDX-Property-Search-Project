@@ -130,9 +130,9 @@ router.get('/', async(req, res) => {
             },
 			property: properties
         });
-    }catch (error){
-        console.error('Error in GET /api/properites:', error); //print the error to the terminal
-        res.status(500).json({error: 'Internal Server Error'}); //message displayed to user on fail
+    }catch (err){
+		//console.error('Error in GET /api/properites:', err);
+		res.status(500).json({error: 'Internal Server Error'}); //message displayed to user on fail
     }
 });
 
@@ -162,7 +162,7 @@ router.post('/batch', async (req, res) => {
 			totalItems: properties.length
 		});
 	}catch (err){
-		console.error('Error in POST /api/properties/bacth: ', err);
+		//console.error('Error in POST /api/properties/bacth: ', err);
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 });
@@ -193,7 +193,7 @@ router.get('/:id/openhouses', async (req, res) => {
         return res.status(200).json(openHouses);
 
     }catch(err){
-        console.log("Error fetching open houses.");
+        //console.error("Error fetching open houses.");
         res.status(500).json({ error: err.message});
     }
 
@@ -219,7 +219,7 @@ router.get('/:id', async (req, res) => {
     
     }catch(err){
         //catch any connection or syntax errors
-        console.error("Database error occurred:", err);
+        //console.error("Database error occurred:", err);
         res.status(500).json({ error: err.message });
     }
 });

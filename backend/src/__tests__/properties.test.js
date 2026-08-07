@@ -196,7 +196,7 @@ describe('GET /api/properites (search and Filtering)', () => {
 
 	//Test for database error handling of /api/properties
 	it('should return 500 when database fails', async () => {
-		pool.query.mockRejectedValueOnce(new Error('Databse error'));
+		pool.query.mockRejectedValueOnce(new Error('Database error'));
 
 		const response = await request(app).get('/api/properties');
 
