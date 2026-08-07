@@ -295,9 +295,11 @@ Retrives a row from the database of a single property by id and fallsback to L_L
 * **URL:** `/properties/:id`  
 * **Method:** `GET`  
 * **Query Parameters:**
+
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | string/number | Yes | rets_property primary key, or fallback to L_ListingID |
+
 * **Response (200 OK):**  
 ```json
 {
@@ -384,7 +386,8 @@ Retrives property details for multiple property IDs in a single request
 
 ###table Names: rets_property, rets_openhouse
 
-* **rets_property important columns**  
+* **rets_property important columns**
+
 | Field | Type | Null | Key | Default |
 | --- | --- | --- | --- | --- |
 | id | int | NO | PRI | NULL |
@@ -404,7 +407,8 @@ Retrives property details for multiple property IDs in a single request
 | PhotoCount | int | YES |   | NULL |
 
 
-* **rets_openhouse important columns**  
+* **rets_openhouse important columns**
+
 | Field | Type | Null | Key | Default |
 | --- | --- | --- | --- | --- |
 | id | int | NO | PRI | NULL |
