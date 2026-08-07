@@ -68,6 +68,23 @@ describe('POST /api/properties/batch', () => {
 	});
 
 	//Test Some ids invalid
+	it('should filter out invalid IDs and query only valid ones', async () => {
+		const mockProperties = [{ id: 101, L_ListingID: '101'}];
+		pool.query.mockResolvedValueOnce([mockProperties]);
+
+		const response = await request(app).post('/api/properties/batch').send({ ids: [5, -13, 'nonNum']});
+
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual({
+			property: mockProperties,
+			totalItems: 1,
+		});
+		expect(pool.query).toHaveBeenCalledWith(
+			'SELECT * FROM rets_property WHERE id IN (?) OR L_ListingID IN (?)',
+			[5, 5]
+		);
+
+	});
 
 	//Test database error
 
