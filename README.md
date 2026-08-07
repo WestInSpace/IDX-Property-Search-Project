@@ -172,11 +172,11 @@ Create and open a .env file within your /backend directory:
 Populate the configuration values using your custom credentials:
 
 ```
-PORT=[port to run server on]
-DB_HOST=[database location]
-DB_USER=[database username]
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
 DB_PASSWORD=[yourDatabasePassword]
-DB_NAME=[databasename]
+DB_NAME=rets
 ```
 
 * **PORT**: The network port for your backend server (Common defaults: 5000, 8000, 8080).
@@ -390,6 +390,55 @@ Retrives property details for multiple property IDs in a single request
 }
 ```
 ---
+## Database Schema
+
+###Database name: rets
+
+###table Names: rets_property, rets_openhouse
+
+* **rets_property important columns**  
++-------------------+----------------+------+-----+---------+
+| Field             | Type           | Null | Key | Default |
++-------------------+----------------+------+-----+---------+
+| id                | int            | NO   | PRI | NULL    |
+| L_ListingID       | varchar(255)   | YES  | MUL | NULL    |
+| L_Address         | varchar(100)   | YES  |     | NULL    |
+| L_Zip             | varchar(20)    | YES  | MUL | NULL    |
+| L_AddressStreet   | varchar(50)    | YES  |     | NULL    |
+| L_City            | varchar(50)    | YES  | MUL | NULL    |
+| L_State           | varchar(50)    | YES  |     | NULL    |
+| L_Keyword2        | int            | YES  | MUL | NULL    | -> Number of bedrooms
+| LM_Dec_3          | decimal(4,1)   | YES  |     | NULL    | -> Number of bathrooms
+| L_SystemPrice     | int            | YES  | MUL | NULL    |
+| LMD_MP_Latitude   | decimal(18,15) | YES  |     | NULL    |
+| LMD_MP_Longitude  | decimal(19,15) | YES  |     | NULL    |
+| L_Remarks         | mediumtext     | YES  |     | NULL    |
+| L_Photos          | longtext       | YES  |     | NULL    |
+| PhotoCount        | int            | YES  |     | NULL    |
++-------------------+----------------+------+-----+---------+
+
+
+* **rets_openhouse important columns**  
++------------------+--------------+------+-----+---------+
+| Field            | Type         | Null | Key | Default |
++------------------+--------------+------+-----+---------+
+| id               | int          | NO   | PRI | NULL    |
+| L_ListingID      | varchar(255) | NO   | MUL | NULL    |
+| OpenHouseDate    | date         | NO   | MUL | NULL    |
+| OH_StartTime     | time         | NO   |     | NULL    |
+| OH_EndTime       | time         | NO   |     | NULL    |
+| OH_StartDate     | date         | NO   |     | NULL    |
+| OH_EndDate       | date         | NO   |     | NULL    |
+| all_data         | longtext     | NO   |     | NULL    |
++------------------+--------------+------+-----+---------+
+
+* **Other Important table information**  
+- L_ListingID is the for foreign key.  
+	If you have a property and you want to get it's open houses get the open houses with the same L_ListingID as the property.
+- This is not a comprhensive display of the table columns. These are what are the most important for the app functionality. To see the complete tables log into the database and run:
+	`DESCRIBE [table_name];`
+
+---
 ## Complete list of Makefile capabilities
 
 I have created a Makefile for the project, this will allow the user / programmer to easily start and stop the application as well as redirects output to local log files rather than just printing them in the terminal.
@@ -407,5 +456,11 @@ Here's how to use it:
 	h. `make deleteLogs`-> Delete all the local log files
 
 I hope to continue to add to this Makefile to make it even more powerful and give it the capability to do things such as start the project for the first time and even populate the database based on sql files that the user / programmer will put in a predefined directory. The goal would be to make databse set up more simple.
+
+---
+
+##Known Issues
+
+- When returning to the property listings page from the property details page it will return the user to page 1 rather than the page they left off on.
 
 ---
