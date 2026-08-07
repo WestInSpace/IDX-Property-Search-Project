@@ -87,6 +87,13 @@ describe('POST /api/properties/batch', () => {
 	});
 
 	//Test database error
+	it('should return 500 when database fails', async () => {
+		pool.query.mockRejectedValueOnce(new Error('Database error'));
 
+		const response = await request(app).post('/api/properties/batch').send({ ids: [101, 111] });
+
+		expect(response.status).toBe(500);
+		expect(response.body).toEqual({ error: 'Internal Server Error'});
+	});
 
 });
