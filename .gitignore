@@ -16,3 +16,6 @@ checkpoint/
 
 #ignore my logs
 logs/
+
+#ignore lint coverage data
+backend/coverage
