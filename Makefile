@@ -2,14 +2,14 @@
 BACKEND_PORT  := 5000
 FRONTEND_PORT := 3000
 
-.PHONY: install testFront testBack testAll start stop clearLogs
+.PHONY: install testFront testBack testAll start stop stopBack clearLogs
 
 #Install project dependencies
 install:
 	@echo "Installing backend dependancies . . ."
 	@cd ./backend && npm install
 	@echo "Installing frontend dependancies . . ."
-	@cd ./fronend && npm install
+	@cd ./frontend && npm install
 
 #run the unit tests for the frontend
 testFront:
@@ -19,12 +19,12 @@ testFront:
 #run the unit tests for the backend
 testBack:
 	@echo "Running backend unit tests . . ."
-	@cd ./backend && npm run test
+	@cd ./backend && npm run test -- --coverage
 
 #run unit tests for both backend and frontend
 testAll:
 	@echo "Running backend unit tests . . ."
-	@cd ./backend && npm run test
+	@cd ./backend && npm run test -- --coverage
 	@echo "Running frontend unit tests . . ."
 	@cd ./frontend && npm run test -- --run
 
@@ -54,7 +54,7 @@ stop:
 	fi
 	-@fuser -k -n tcp $(BACKEND_PORT) >> ./logs/backend.log 2>&1 || true
 	@echo "[`date +'%Y-%m-%d %H:%M:%S'`] Backend server stopped." >> ./logs/backend.log
-
+	
 	@echo "Stopping frontend server on port $(FRONTEND_PORT) . . ."
 	@echo "[`date +'%Y-%m-%d %H:%M:%S'`] Stopping frontend server..." >> ./logs/frontend.log
 	-@PID=$$(fuser $(FRONTEND_PORT)/tcp 2>/dev/null | xargs); \
@@ -70,6 +70,19 @@ stop:
 	@echo "Stopping database container . . ."
 	@cd ./backend && docker compose down
 	@echo "All services stopped."
+
+stopBack:
+	@echo "Stopping backend server on port $(BACKEND_PORT) . . ."
+	@echo "[`date +'%Y-%m-%d %H:%M:%S'`] Stopping backend server..." >> ./logs/backend.log
+	-@PID=$$(fuser $(BACKEND_PORT)/tcp 2>/dev/null | xargs); \
+	if [ -n "$$PID" ]; then \
+		PPID=$$(ps -o ppid= -p $$PID 2>/dev/null | xargs); \
+		kill -15 $$PPID $$PID 2>/dev/null || true; \
+		sleep 0.5; \
+		kill -9 $$PPID $$PID 2>/dev/null || true; \
+	fi
+	-@fuser -k -n tcp $(BACKEND_PORT) >> ./logs/backend.log 2>&1 || true
+	@echo "[`date +'%Y-%m-%d %H:%M:%S'`] Backend server stopped." >> ./logs/backend.log
 
 #Delete the content of the log files without deleting the file
 clearLogs:
