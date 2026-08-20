@@ -11,7 +11,7 @@ import errStyles from '../utils/ErrorBoundary.module.css';
 import styles from './css_modules/ListingsPage.module.css'; //import styles for the ListingsPage
 
 function ListingsPage(){
-	//const[properties, setProperties] = useState([]); //store the properties returned from the backend
+	const[properties, setProperties] = useState([]); //store the properties returned from the backend
 	const [pagination, setPagination] = useState({}); //store the pagination metadata from the backend
 	const [page, setPage] = useState(1); //track the currentPage number
 	const limit = 24; //set the limit for how many listings will be on a page
