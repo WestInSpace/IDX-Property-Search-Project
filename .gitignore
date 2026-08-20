@@ -16,6 +16,3 @@ checkpoint/
 
 #ignore my logs
 logs/
-
-#ignore coverage data
-backend/coverage/
