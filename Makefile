@@ -71,6 +71,7 @@ stop:
 	@cd ./backend && docker compose down
 	@echo "All services stopped."
 
+# Stop the backend server
 stopBack:
 	@echo "Stopping backend server on port $(BACKEND_PORT) . . ."
 	@echo "[`date +'%Y-%m-%d %H:%M:%S'`] Stopping backend server..." >> ./logs/backend.log
