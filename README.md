@@ -217,11 +217,13 @@ Here's how to use it:
 1. Navigate to the root directory of the project, where the Makefile is located.  
 2. Run the command corrosponding to the action you wish to take:  
 	a. `make install` -> Install or update all needed project dependanies  
-	b. `make test` -> Run the unit tests for the project  
-	c. `make start` -> Start the database continer, backend server, and frontend server as well as redirect output to log files  
-	d. `make stop` -> stop the frontend server, backend server, and the database container  
-	e. `make clearLogs` -> Delete the contents of all the local log files  
-	f. `make deleteLogs` -> Delete all the local log files
+	b. `make testFront` -> Run the unit tests for the project frontend  
+	c. `make testBack` -> Run the unit tests for the project backend  
+	d. `make testAll` -> Run all the unit tests for the project  
+	e. `make start` -> Start the database continer, backend server, and frontend server as well as redirect output to log files  
+	f. `make stop` -> stop the frontend server, backend server, and the database container  
+	g. `make clearLogs` -> Delete the contents of all the local log files  
+	h. `make deleteLogs` -> Delete all the local log files
 
 I hope to continue to add to this Makefile to make it even more powerful and give it the capability to do things such as start the project for the first time and even populate the database based on sql files that the user / programmer will put in a predefined directory. The goal would be to make databse set up more simple.
 
