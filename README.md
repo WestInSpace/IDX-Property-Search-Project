@@ -16,6 +16,30 @@ Filter properties by your chosen filters to see only properties that you're look
 Click on a property and view details about it including: property description, an image gallery, upcoming openhouses, and it's location on Google Maps.
 As well as get directions to the property from your location with the press of a button.
 
+![Alt Text](./images/ProjectScreenshot.png)
+
+---
+## Tech stack
+
+### Frontend
+- **Framework:** React v19.2.7
+- **State/Routing:** React-dom v19.2.7, React-Router-dom v7.18.2
+- **Icons:** lucide-react v1.28.0
+
+### Backend
+- **Runtime:** Node.js v24.17.0
+- **Framework:** Express v5.2.1
+- **Database Driver:** mysql2 v3.22.5
+
+### Database & Infastructure
+- **Database:** MYSQL 8.0
+- **Containerization:** Docker v29.6.0, Docker Compose v5.1.4
+
+### Testing & Development
+- **Test Runners:** vitest v4.1.10, Jest v30.4.2
+- **HTTP Testing:** Supertest v7.2.2
+- **Code Quality:** ESLint v10.6.0
+
 ---
 
 ## Set up of local Database
@@ -148,11 +172,11 @@ Create and open a .env file within your /backend directory:
 Populate the configuration values using your custom credentials:
 
 ```
-PORT=[port to run server on]
-DB_HOST=[database location]
-DB_USER=[database username]
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
 DB_PASSWORD=[yourDatabasePassword]
-DB_NAME=[databasename]
+DB_NAME=rets
 ```
 
 * **PORT**: The network port for your backend server (Common defaults: 5000, 8000, 8080).
@@ -205,8 +229,202 @@ Then try reinstalling dependencies by running:
 Then try starting the application again by runnging:
 `make start`
 
-Now when you vist the frontend everythign should be working.  
+Now when you vist the frontend everything should be working.  
 If it is still not view the logs and look for an error and please report a bug on this repo so that I can fix it as soon as possible. The more detail you provide in the bug report the better.
+
+---
+## API endpoint reference
+
+**Base URL:** `http://localhost:5000/api`
+
+### 1. Get All Properties (Search and Filter)
+
+Retrives a paginated list of properties with support for filtering by location, price, bedrooms, and bathrooms.
+
+* **URL:** `/properties`  
+* **Method:** `GET`  
+* **Query Parameters:**
+
+| Parameter |	Type   | Required | Description										|  
+|-----------|----------|----------|-------------------------------------------------|  
+| `limit` 	| `number` | Optional | Number of items per page (default: `20`)		|  
+| `offset` 	| `number` | Optional | Starting offset for pagination (default: `0`)	|  
+| `city` 	| `string` | Optional | Filter by city name (case-insensitive)			|  
+| `zipcode` | `number` | Optional | Filter by 5-digit postal code					|  
+| `minPrice`| `number` | Optional | Minimum system price (`>=`)						|  
+| `maxPrice`| `number` | Optional | Maximum system price (`<=`)						|  
+| `beds` 	| `number` | Optional | Minimum bedroom count (`>=`)					|  
+| `baths` 	| `number` | Optional | Minimum bathroom count (`>=`)					|
+
+* **Response (200 OK):**  
+```json
+{
+  "pagination": {
+    "totalItems": 25,
+    "totalPages": 2,
+    "currentPage": 1,
+    "itemsPerPage": 20,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  },
+  "property": [
+    {
+      "id": 1,
+      "L_ListingID": "MLS_1001",
+      "L_City": "Orlando",
+      "L_zip": 32801,
+      "L_SystemPrice": 350000,
+      "L_Keyword2": 3,
+      "LM_Dec_3": 2
+    }
+  ]
+}
+```
+
+* **Response (400 Bad Request):**  
+```json
+{
+  "error": "Bad Request",
+  "messages": ["zipcode not a valid number"]
+}
+```
+
+**Get Property Details**  
+Retrives a row from the database of a single property by id and fallsback to L_ListingID
+
+* **URL:** `/properties/:id`  
+* **Method:** `GET`  
+* **Query Parameters:**
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | string/number | Yes | rets_property primary key, or fallback to L_ListingID |
+
+* **Response (200 OK):**  
+```json
+{
+  "id": 101,
+  "L_ListingID": "MLS_101",
+  "L_City": "Orlando",
+  "L_zip": 32801,
+  "L_SystemPrice": 420000,
+  "L_Keyword2": 4,
+  "LM_Dec_3": 3
+}
+```
+
+* **Response (404 Not Found):**  
+```json
+{
+  "message": "Property not found, check that the id is valid"
+}
+```
+**Get Property Open houses**  
+Retrives all open houses scheduled for a specific property
+
+* **URL:** `/properties/:id/openhouses`  
+* **Method:** `GET`  
+* **Query Parameters:**
+
+| Parameter |	  Type		| Required |              Description									 |  
+|-----------|---------------|----------|-------------------------------------------------------------|  
+| `id`	 	| string/number |    Yes   | rets_property primary key, or fallback to L_ListingID		 |
+
+* **Response (200 OK):**  
+```json
+[
+  {
+    "id": 1,
+    "L_ListingID": "MLS_101",
+    "OpenHouseDate": "2026-09-10T14:00:00.000Z",
+    "OpenHouseStartTime": "14:00",
+    "OpenHouseEndTime": "17:00"
+  }
+]
+```
+
+* **Response (404 Not Found):**  
+```json
+{
+  "message": "Property not found"
+}
+```
+
+**Get properties batch**  
+Retrives property details for multiple property IDs in a single request
+
+* **URL:** `/properties/batch`  
+* **Method:** `POST`  
+* **Headers:** `Content-Type: application/json`
+* **Request Body:**
+
+| Field	    |	  Type		| Required |              Description				 |  
+|-----------|---------------|----------|-----------------------------------------|  
+| `ids`	 	| array[number] |    Yes   | Array of property IDs to querry		 |
+
+* **Example Request Body:**  
+```json
+{
+  "ids": [10, 20, 30]
+}
+```
+
+* **Response (200 OK):**  
+```json
+{
+  "property": [
+    { "id": 10, "L_ListingID": "L10" },
+    { "id": 20, "L_ListingID": "L20" }
+  ],
+  "totalItems": 2
+}
+```
+---
+## Database Schema
+
+###Database name: rets
+
+###table Names: rets_property, rets_openhouse
+
+* **rets_property important columns**
+
+| Field | Type | Null | Key | Default |
+| --- | --- | --- | --- | --- |
+| id | int | NO | PRI | NULL |
+| L_ListingID | varchar(255) | YES | MUL | NULL |
+| L_Address | varchar(100) | YES |   | NULL |
+| L_Zip | varchar(20) | YES | MUL | NULL |
+| L_AddressStreet | varchar(50) | YES |   | NULL |
+| L_City | varchar(50) | YES | MUL | NULL |
+| L_State | varchar(50) | YES |   | NULL |
+| L_Keyword2 | int | YES | MUL | NULL |
+| LM_Dec_3 | decimal(4,1) | YES |   | NULL |
+| L_SystemPrice | int | YES | MUL | NULL |
+| LMD_MP_Latitude | decimal(18,15) | YES |   | NULL |
+| LMD_MP_Longitude | decimal(19,15) | YES |   | NULL |
+| L_Remarks | mediumtext | YES |   | NULL |
+| L_Photos | longtext | YES |   | NULL |
+| PhotoCount | int | YES |   | NULL |
+
+
+* **rets_openhouse important columns**
+
+| Field | Type | Null | Key | Default |
+| --- | --- | --- | --- | --- |
+| id | int | NO | PRI | NULL |
+| L_ListingID | varchar(255) | NO | MUL | NULL |
+| OpenHouseDate | date | NO | MUL | NULL |
+| OH_StartTime | time | NO |   | NULL |
+| OH_EndTime | time | NO |   | NULL |
+| OH_StartDate | date | NO |   | NULL |
+| OH_EndDate | date | NO |   | NULL |
+| all_data | longtext | NO |   | NULL |
+
+* **Other Important table information**  
+- L_ListingID is the for foreign key.  
+	If you have a property and you want to get it's open houses get the open houses with the same L_ListingID as the property.
+- This is not a comprhensive display of the table columns. These are what are the most important for the app functionality. To see the complete tables log into the database and run:
+	`DESCRIBE [table_name];`
 
 ---
 ## Complete list of Makefile capabilities
@@ -216,15 +434,21 @@ I have created a Makefile for the project, this will allow the user / programmer
 Here's how to use it:  
 1. Navigate to the root directory of the project, where the Makefile is located.  
 2. Run the command corrosponding to the action you wish to take:  
-	a. `make install` -> Install or update all needed project dependanies  
-	b. `make testFront` -> Run the unit tests for the project frontend  
-	c. `make testBack` -> Run the unit tests for the project backend  
-	d. `make testAll` -> Run all the unit tests for the project  
-	e. `make start` -> Start the database continer, backend server, and frontend server as well as redirect output to log files  
-	f. `make stop` -> stop the frontend server, backend server, and the database container  
-	g. `make clearLogs` -> Delete the contents of all the local log files  
-	h. `make deleteLogs` -> Delete all the local log files
+	a. `make install` 	-> Install or update all needed project dependanies  
+	b. `make testFront` -> Run the unit tests for the frontend of the project  
+	c. `make testBack`	-> Run the unit tests for the backend of the project
+	d. `make testAll`	-> Run all the unit tests for the project
+	e. `make start` 	-> Start the database continer, backend server, and frontend server as well as redirect output to log files  
+	f. `make stop`		-> stop the frontend server, backend server, and the database container  
+	g. `make clearLogs`	-> Delete the contents of all the local log files  
+	h. `make deleteLogs`-> Delete all the local log files
 
 I hope to continue to add to this Makefile to make it even more powerful and give it the capability to do things such as start the project for the first time and even populate the database based on sql files that the user / programmer will put in a predefined directory. The goal would be to make databse set up more simple.
+
+---
+
+##Known Issues
+
+- When returning to the property listings page from the property details page it will return the user to page 1 rather than the page they left off on.
 
 ---
