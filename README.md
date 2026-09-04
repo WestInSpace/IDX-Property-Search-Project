@@ -16,7 +16,10 @@ Filter properties by your chosen filters to see only properties that you're look
 Click on a property and view details about it including: property description, an image gallery, upcoming openhouses, and it's location on Google Maps.
 As well as get directions to the property from your location with the press of a button.
 
-![Alt Text](./images/ProjectScreenshot.png)
+![Image of Listings Page of the project](./images/ProjectScreenshot.png)
+
+![Project demo video](https://youtube.com)](https://youtu.be/BHs46l9cJ5o)
+
 
 ---
 ## Tech stack
