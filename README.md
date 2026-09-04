@@ -18,7 +18,7 @@ As well as get directions to the property from your location with the press of a
 
 ![Image of Listings Page of the project](./images/ProjectScreenshot.png)
 
-![Project demo video](https://youtube.com)](https://youtu.be/BHs46l9cJ5o)
+[![Project demo video](https://youtube.com)](https://youtu.be/BHs46l9cJ5o)
 
 
 ---
