@@ -1,0 +1,62 @@
+.mapContainer{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.actionsRow{
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 8px;
+}
+
+.directionsBtn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 20px;
+	background-color: #0066CC;
+	color: #FFFFFF;
+	font-size: 0.95rem;
+	font-weight: 600;
+	text-decoration: none;
+	border-radius: 6px;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.directionsBtn:hover{
+	background-color: #0052A3;
+}
+
+.directionsBtn:active{
+	transform: scale(0.98);
+}
+
+.iframeWrapper{
+	width: 100%;
+	height: 380px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	background-color: #F0F0F0;
+}
+
+.mapFallback{
+	width: 100%;
+	height: 250px;
+	border-radius: 12px;
+	background-color: #F8F9FA;
+	border: 1px dashed #CCCCCC;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #6C757D;
+	font-size: 0.9rem;
+}
+
+@media (max-width: 768px){
+	.iframeWrapper{
+		height: 280px;
+	}
+}

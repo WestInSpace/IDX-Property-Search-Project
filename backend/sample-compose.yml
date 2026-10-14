@@ -1,0 +1,18 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: idx-mysql-local
+#    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: [Enter your password]
+      MYSQL_DATABASE: rets
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./src/config/init.sql:/docker-entrypoint-initdb.d/init.sql  #Maps init scripts to run on startup, locationOfinitSscrits:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql #Connects the permanent vault, locationOfLocalVault:/var/lib/mysql
+
+volumes:
+  [nameOfVault]:
+
+

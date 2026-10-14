@@ -1,0 +1,44 @@
+/* background style */
+.background {
+	width: auto;
+	padding: 20px;
+	background-color: #212121;
+}
+
+/* header style */
+.headerBackground {
+	background-color: #BABABA;
+	padding: 15px 20px;
+	border-bottom: 1px solid #EAEAEA;
+	margin-bottom: 10px;
+}
+
+/* header 1 style */
+.header {
+	margin: 10px;
+	font-size: 2rem;
+	color: #0056B3;
+}
+
+/* header 2 style */
+.header2 {
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 1.5rem;
+	color: #DDDDDD;
+}
+
+/* header 3 style */
+.header3 {
+	text-align: left;
+	margin-bottom: 5px;
+	color: #999999;
+	font-size: 1.1rem;
+}
+
+/* the style of the grid */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 20px;
+}

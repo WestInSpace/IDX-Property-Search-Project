@@ -1,0 +1,203 @@
+.galleryContainer{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.heroContiner{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: #F0F0F0;
+	border-radius: 12px;
+}
+
+.heroImage{
+	width: 100%;
+	height: 480px;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.heroContainer:hover .heroImage{
+	transform: scale(1.015);
+}
+
+.heroFallBack, .noPhotosContainer{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #7F7F7F;
+	color: #000000;
+	font-size: 1rem;
+}
+
+.noPhotosContainer{
+	height: 350px;
+	border-radius: 12px;
+}
+
+.thumbnailStrip{
+	display: flex;
+	gap: 10px;
+	overflow-x: auto;
+	padding-bottom: 6px;
+	scroll-behavior: smooth;
+}
+
+.thumbnailStrip::-webkit-scrollbar {
+	height: 6px;
+}
+.thumbnailStrip::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 3px;
+}
+
+.thumbButton {
+	flex: 0 0 90px;
+	height: 65px;
+	border: 2px solid transparent;
+	border-radius: 6px;
+	padding: 0;
+	overflow: hidden;
+	background: #e0e0e0;
+	cursor: pointer;
+	opacity: 0.65;
+	transition: all 0.2s ease;
+}
+
+.thumbButton:hover {
+	opacity: 1;
+}
+
+.activeThumb {
+	border-color: #0066cc; /* Highlight border for active image */
+	opacity: 1;
+}
+
+.thumbImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.thumbFallback {
+	font-size: 0.7rem;
+	color: #777;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* --- LIGHTBOX MODAL STYLES --- */
+.lightboxOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.9);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lightboxContent {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.lightboxStage {
+	max-width: 100%;
+	max-height: 80vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lightboxImage {
+	max-width: 90vw;
+	max-height: 80vh;
+	object-fit: contain;
+	border-radius: 4px;
+}
+
+.lightboxFallback {
+	width: 100%;
+	height: 100%;
+	color: #FFFFFF;
+	font-size: 1.2rem;
+}
+
+.closeBtn {
+	position: absolute;
+	top: -45px;
+	right: 0;
+	background: none;
+	border: none;
+	color: #ffffff;
+	font-size: 2rem;
+	cursor: pointer;
+	padding: 4px;
+	line-height: 1;
+}
+
+.lightboxArrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(255, 255, 255, 0.2);
+	color: #ffffff;
+	border: none;
+	font-size: 2.5rem;
+	padding: 8px 16px;
+	cursor: pointer;
+	border-radius: 50%;
+	transition: background 0.2s;
+}
+
+.lightboxArrow:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.prevArrow {
+	left: -60px;
+}
+
+.nextArrow {
+	right: -60px;
+}
+
+.lightboxCounter {
+	color: #ffffff;
+	margin-top: 12px;
+	font-size: 0.9rem;
+	letter-spacing: 1px;
+}
+
+/* Mobile Adjustments for Lightbox Arrows */
+@media (max-width: 768px) {
+	.heroContainer {
+		height: 300px;
+	}
+	.prevArrow {
+		left: 10px;
+	}
+	.nextArrow {
+		right: 10px;
+	}
+}
